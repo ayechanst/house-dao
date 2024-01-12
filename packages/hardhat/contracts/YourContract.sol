@@ -42,17 +42,10 @@ contract YourContract {
         que.push(newMaybeTask);
     }
 
-    function ballot(bool vote) public {
-        uint256 lastIndex;
+    function ballot(bool vote) public returns(uint256 numOfVotes) {
         uint256 yes;
         uint256 no;
-
-        // prepare for popping
-        if (que.length < 1) {
-            lastIndex = 0;
-        } else {
-            lastIndex = que.length - 1;
-        }
+        bool dumb;
 
         // voting
         if (vote) {
@@ -63,20 +56,22 @@ contract YourContract {
 
         // handling
         if ((yes + no) == numOfMembers) {
-            if (yes > numOfMembers/2) {
-                // approve
+            if (yes > numOfMembers / 2) {
+                return yes + no;
             } else {
-                return;
+                dumb = false;
             }
 
             // move task to end of que for popping
-            require(que.length < 0, "not long");
-            que[0] = que[que.length - 1];
-            que.pop();
+            if (que.length > 0) {
+                que[0] = que[que.length - 1];
+                que.pop();
+            }
         } else {
-            return;
+            return yes + no;
         }
-        // task being voted on: que[0];
     }
+
+    // we need to add a view function to look at the votes going in
 
 }
