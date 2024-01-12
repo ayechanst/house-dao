@@ -14,7 +14,7 @@ import "hardhat/console.sol";
  */
 contract YourContract {
 
-    struct MaybeTask {
+    struct Task {
         string name;
         bool approved;
     }
@@ -22,13 +22,16 @@ contract YourContract {
 
     mapping(string => bool) public members;
     uint256 public numOfMembers = 0;
-    MaybeTask[] public que;
+    Task[] public taskArray;
+    uint256 runnerUp;
+    uint256 yes;
+    uint256 no;
 
-    function votingTask() public view returns(MaybeTask memory) {
-        if (que.length < 1) {
-            return MaybeTask("no task", false);
+    function votingTask() public view returns(Task memory) {
+        if (taskArray.length < 1) {
+            return Task("no task", false);
         } else {
-            return que[0];
+            return taskArray[runnerUp];
         }
     }
 
@@ -38,13 +41,11 @@ contract YourContract {
     }
 
     function addTask(string memory name) public {
-        MaybeTask memory newMaybeTask = MaybeTask(name, false);
-        que.push(newMaybeTask);
+        Task memory newTask = Task(name, false);
+        taskArray.push(newTask);
     }
 
     function ballot(bool vote) public {
-        uint256 yes;
-        uint256 no;
 
         // voting
         if (vote) {
@@ -56,17 +57,15 @@ contract YourContract {
         // handling
         if ((yes + no) == numOfMembers) {
             if (yes > numOfMembers / 2) {
-                // task approved
+                taskArray[runnerUp].approved = true;
             } else {
-                // task not approved
+                taskArray[runnerUp].approved = false;
             }
-            // move task to end of que for popping
-            if (que.length > 0) {
-                que[0] = que[que.length - 1];
-                que.pop();
-            }
+            runnerUp++;
+            yes = 0;
+            no = 0;
         } else {
-            // do nothing
+            return;
         }
     }
 

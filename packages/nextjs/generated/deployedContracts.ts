@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
           abi: [
             {
               inputs: [
@@ -42,13 +42,7 @@ const contracts = {
                 },
               ],
               name: "ballot",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "numOfVotes",
-                  type: "uint256",
-                },
-              ],
+              outputs: [],
               stateMutability: "nonpayable",
               type: "function",
             },
@@ -92,7 +86,7 @@ const contracts = {
                   type: "uint256",
                 },
               ],
-              name: "que",
+              name: "taskArray",
               outputs: [
                 {
                   internalType: "string",
@@ -125,7 +119,7 @@ const contracts = {
                       type: "bool",
                     },
                   ],
-                  internalType: "struct YourContract.MaybeTask",
+                  internalType: "struct YourContract.Task",
                   name: "",
                   type: "tuple",
                 },
