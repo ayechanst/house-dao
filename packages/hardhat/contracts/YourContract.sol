@@ -81,8 +81,37 @@ contract YourContract {
         }
     }
 
-    function executeTask() public {
-        // looks if task is approved, and if task is done
+    function executeTask(string memory memberName, uint256 grade) public {
+        // task info
+        uint256 targetTask; // the index
+        Task memory current = taskArray[targetTask]; // the task
+        Status taskStatus = current.status; // the task status
+        // task manager
+        uint256 targetManager;
+        string memory manager = current.manager; // the task manager
+        // task force
+        string[] memory taskForce = current.taskForce; // the task force
+
+        if (taskStatus == Status.ACTIVE) {
+            if (keccak256(abi.encodePacked(memberName)) ==
+                keccak256(abi.encodePacked(manager))) {
+                taskStatus = Status.EFFECT;
+            }
+        } else if (taskStatus == Status.GRADING) {
+            taskStatus = Status.EFFECT;
+            // if its not the manager grade
+        } else if (taskStatus == Status.EFFECT) {
+            taskStatus = Status.ACTIVE;
+            // also set new manager
+            targetManager++;
+            current.manager = taskForce[targetManager];
+            targetTask++;
+        } else {
+            // error
+        }
+
+        taskArray[targetTask] = current;
+
     }
 
 }
