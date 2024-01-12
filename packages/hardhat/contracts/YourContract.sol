@@ -14,25 +14,34 @@ import "hardhat/console.sol";
  */
 contract YourContract {
 
-    struct Task {
+    struct MaybeTask {
         string name;
         bool approved;
     }
 
+
     mapping(string => bool) public members;
-    Task[] public que;
+    uint256 public numOfMembers = 0;
+    MaybeTask[] public que;
 
     function addMember(string memory name) public {
         members[name] = true;
+        numOfMembers++;
     }
 
     function addTask(string memory name) public {
-        Task memory newTask = Task(name, false);
-        que.push(newTask);
+        MaybeTask memory newMaybeTask = MaybeTask(name, false);
+        que.push(newMaybeTask);
     }
 
-    function ballot(bool vote) public {
-
+    function ballot() public view returns(MaybeTask memory) {
+    uint256 lastIndex;
+    if (que.length < 1) {
+        lastIndex = 0;
+    } else {
+        lastIndex = que.length - 1;
+    }
+    return que[0];
     }
 
 }

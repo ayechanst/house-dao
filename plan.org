@@ -1,0 +1,9 @@
+House DAO
+
+* Phase 1
+** members
+are in an mapping
+** task creation
+people make task structs that go in a que array
+** voting
+the oldest task is eligible for voting, then after it is popped out of the que
