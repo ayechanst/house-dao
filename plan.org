@@ -1,5 +1,8 @@
 House DAO
 
+* Cool features
+** House Cred
+Every member has "house cred" which is just reputation
 * Phase 1
 ** members
 are in an mapping
@@ -11,3 +14,24 @@ people make task structs that go in a que array
 2. after voting is done next task is up for voting
 3. if wins, it gets pushed to active tasks
 4. if it loses, nothing happens and next task is up for voting
+** task execution
+*** Questions
+- how does it know which task?
+  1. ideally an amount of time passed
+  2. click a button to make pass fake "time"
+
+*** Method 1
+- each task has an array of members
+- assigned member is the first index of the array
+
+task exection function()
+- alters between done func and review func
+
+task done function()
+1. assigned member marks the task as completed
+2. task is set to done and is now open for review
+
+task review function(reviewer name)
+1. grades task
+2. when all members review tasks
+3. moves to next member and marks status as not done

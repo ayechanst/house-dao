@@ -16,9 +16,9 @@ contract YourContract {
 
     struct Task {
         string name;
+        string[] assignedMembers;
         bool approved;
     }
-
 
     mapping(string => bool) public members;
     uint256 public numOfMembers = 0;
@@ -29,7 +29,9 @@ contract YourContract {
 
     function votingTask() public view returns(Task memory) {
         if (taskArray.length < 1) {
-            return Task("no task", false);
+            return Task("no task",
+                        new string[](0),
+                        false);
         } else {
             return taskArray[runnerUp];
         }
@@ -40,21 +42,19 @@ contract YourContract {
         numOfMembers++;
     }
 
-    function addTask(string memory name) public {
-        Task memory newTask = Task(name, false);
+    function addTask(string memory name, string[] memory assignedMembers) public {
+        Task memory newTask = Task(name,
+                                   assignedMembers,
+                                   false);
         taskArray.push(newTask);
     }
 
     function ballot(bool vote) public {
-
-        // voting
         if (vote) {
             yes++;
         } else {
             no++;
         }
-
-        // handling
         if ((yes + no) == numOfMembers) {
             if (yes > numOfMembers / 2) {
                 taskArray[runnerUp].approved = true;
@@ -68,6 +68,7 @@ contract YourContract {
             return;
         }
     }
+
 
 
 }
