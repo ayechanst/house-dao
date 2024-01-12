@@ -24,6 +24,14 @@ contract YourContract {
     uint256 public numOfMembers = 0;
     MaybeTask[] public que;
 
+    function votingTask() public view returns(MaybeTask memory) {
+        if (que.length < 1) {
+            return MaybeTask("no task", false);
+        } else {
+            return que[0];
+        }
+    }
+
     function addMember(string memory name) public {
         members[name] = true;
         numOfMembers++;
@@ -34,14 +42,41 @@ contract YourContract {
         que.push(newMaybeTask);
     }
 
-    function ballot() public view returns(MaybeTask memory) {
-    uint256 lastIndex;
-    if (que.length < 1) {
-        lastIndex = 0;
-    } else {
-        lastIndex = que.length - 1;
-    }
-    return que[0];
+    function ballot(bool vote) public {
+        uint256 lastIndex;
+        uint256 yes;
+        uint256 no;
+
+        // prepare for popping
+        if (que.length < 1) {
+            lastIndex = 0;
+        } else {
+            lastIndex = que.length - 1;
+        }
+
+        // voting
+        if (vote) {
+            yes++;
+        } else {
+            no++;
+        }
+
+        // handling
+        if ((yes + no) == numOfMembers) {
+            if (yes > numOfMembers/2) {
+                // approve
+            } else {
+                return;
+            }
+
+            // move task to end of que for popping
+            require(que.length < 0, "not long");
+            que[0] = que[que.length - 1];
+            que.pop();
+        } else {
+            return;
+        }
+        // task being voted on: que[0];
     }
 
 }
