@@ -15,12 +15,18 @@ people make task structs that go in a que array
 3. if wins, it gets pushed to active tasks
 4. if it loses, nothing happens and next task is up for voting
 ** task execution
-*** Questions
-- how does it know which task?
-  1. ideally an amount of time passed
-  2. click a button to make pass fake "time"
+questions
+*** how does it know which task?
+**** good way
+1. ideally an amount of time passed
+2. click a button to make pass fake "time"
+**** dumb way
+1. task is input as a param
+**** other dumb way
+1. it iterates through the array and just checks if the task is approved
 
-*** Method 1
+
+*** Method 1: using helper functions
 - each task has an array of members
 - assigned member is the first index of the array
 
@@ -35,3 +41,18 @@ task review function(reviewer name)
 1. grades task
 2. when all members review tasks
 3. moves to next member and marks status as not done
+
+*** Method 2: using enums for status
+- tasks have states => in progress, awaiting grade, result
+**** in progress
+- only the manager can call the function to await grading
+- next step
+**** awaiting grade
+- only non-managers can call the function to give grade
+steps
+1. input name, and grade
+2. when everyone is done
+3. next step
+**** assign house cred
+- managers gets the grade averaged out
+- reaps rewards/penalities

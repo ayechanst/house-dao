@@ -16,8 +16,16 @@ contract YourContract {
 
     struct Task {
         string name;
-        string[] assignedMembers;
+        string[] taskForce;
+        string manager;
+        Status status;
         bool approved;
+    }
+
+    enum Status {
+        ACTIVE,
+        GRADING,
+        EFFECT
     }
 
     mapping(string => bool) public members;
@@ -31,6 +39,8 @@ contract YourContract {
         if (taskArray.length < 1) {
             return Task("no task",
                         new string[](0),
+                        "no one",
+                        Status.ACTIVE,
                         false);
         } else {
             return taskArray[runnerUp];
@@ -42,9 +52,11 @@ contract YourContract {
         numOfMembers++;
     }
 
-    function addTask(string memory name, string[] memory assignedMembers) public {
+    function addTask(string memory name, string[] memory taskForce) public {
         Task memory newTask = Task(name,
-                                   assignedMembers,
+                                   taskForce,
+                                   taskForce[0],
+                                   Status.ACTIVE,
                                    false);
         taskArray.push(newTask);
     }
@@ -69,6 +81,8 @@ contract YourContract {
         }
     }
 
-
+    function executeTask() public {
+        // looks if task is approved, and if task is done
+    }
 
 }

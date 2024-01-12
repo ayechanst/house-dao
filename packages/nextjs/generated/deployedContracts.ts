@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+          address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
           abi: [
             {
               inputs: [
@@ -29,7 +29,7 @@ const contracts = {
                 },
                 {
                   internalType: "string[]",
-                  name: "assignedMembers",
+                  name: "taskForce",
                   type: "string[]",
                 },
               ],
@@ -47,6 +47,13 @@ const contracts = {
                 },
               ],
               name: "ballot",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "executeTask",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
@@ -99,6 +106,16 @@ const contracts = {
                   type: "string",
                 },
                 {
+                  internalType: "string",
+                  name: "manager",
+                  type: "string",
+                },
+                {
+                  internalType: "enum YourContract.Status",
+                  name: "status",
+                  type: "uint8",
+                },
+                {
                   internalType: "bool",
                   name: "approved",
                   type: "bool",
@@ -120,8 +137,18 @@ const contracts = {
                     },
                     {
                       internalType: "string[]",
-                      name: "assignedMembers",
+                      name: "taskForce",
                       type: "string[]",
+                    },
+                    {
+                      internalType: "string",
+                      name: "manager",
+                      type: "string",
+                    },
+                    {
+                      internalType: "enum YourContract.Status",
+                      name: "status",
+                      type: "uint8",
                     },
                     {
                       internalType: "bool",
