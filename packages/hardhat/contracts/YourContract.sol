@@ -100,8 +100,10 @@ contract YourContract {
         } else if (taskStatus == Status.GRADING) {
             taskStatus = Status.EFFECT;
             // if its not the manager grade
+            // TODO: make the grade part
         } else if (taskStatus == Status.EFFECT) {
             taskStatus = Status.ACTIVE;
+            // TODO: give the rewards and make the correct variables for that
             // also set new manager
             targetManager++;
             current.manager = taskForce[targetManager];
