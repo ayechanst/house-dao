@@ -42,10 +42,9 @@ contract YourContract {
         que.push(newMaybeTask);
     }
 
-    function ballot(bool vote) public returns(uint256 numOfVotes) {
+    function ballot(bool vote) public {
         uint256 yes;
         uint256 no;
-        bool dumb;
 
         // voting
         if (vote) {
@@ -57,21 +56,19 @@ contract YourContract {
         // handling
         if ((yes + no) == numOfMembers) {
             if (yes > numOfMembers / 2) {
-                return yes + no;
+                // task approved
             } else {
-                dumb = false;
+                // task not approved
             }
-
             // move task to end of que for popping
             if (que.length > 0) {
                 que[0] = que[que.length - 1];
                 que.pop();
             }
         } else {
-            return yes + no;
+            // do nothing
         }
     }
 
-    // we need to add a view function to look at the votes going in
 
 }

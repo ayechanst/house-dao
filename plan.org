@@ -6,9 +6,8 @@ are in an mapping
 ** task creation
 people make task structs that go in a que array
 ** voting
+*** Method 1
 1. the oldest task is eligible for voting
-2. it is popped out of the que
-3. if wins, it goes somewhere
-4. if it loses, it goes nowhere
-*** depth
-1. only 1 task can be voted on at a time (already taken care of)
+2. after voting is done next task is up for voting
+3. if wins, it gets pushed to active tasks
+4. if it loses, nothing happens and next task is up for voting
