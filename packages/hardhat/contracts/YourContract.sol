@@ -29,11 +29,14 @@ contract YourContract {
     }
 
     mapping(string => bool) public members;
+    mapping(string => uint256[]) public reputation;
     uint256 public numOfMembers = 0;
     Task[] public taskArray;
     uint256 runnerUp;
     uint256 yes;
     uint256 no;
+    uint256 taskDone;
+    uint256 taskIncomplete;
 
     function votingTask() public view returns(Task memory) {
         if (taskArray.length < 1) {
@@ -91,23 +94,26 @@ contract YourContract {
         string memory manager = current.manager; // the task manager
         // task force
         string[] memory taskForce = current.taskForce; // the task force
-
+        // grading
+        uint256 finalGrade = // / num of task force
         if (taskStatus == Status.ACTIVE) {
             if (keccak256(abi.encodePacked(memberName)) ==
                 keccak256(abi.encodePacked(manager))) {
-                taskStatus = Status.EFFECT;
+                taskStatus = Status.GRADING;
             }
         } else if (taskStatus == Status.GRADING) {
-            taskStatus = Status.EFFECT;
-            // if its not the manager grade
-            // TODO: make the grade part
+            if (keccak256(abi.encodePacked(memberName)) ==
+                keccak256(abi.encodePacked(manager))) {
+                // grade here
+                taskStatus = Status.EFFECT;
+            }
         } else if (taskStatus == Status.EFFECT) {
-            taskStatus = Status.ACTIVE;
             // TODO: give the rewards and make the correct variables for that
             // also set new manager
             targetManager++;
             current.manager = taskForce[targetManager];
             targetTask++;
+            taskStatus = Status.ACTIVE;
         } else {
             // error
         }

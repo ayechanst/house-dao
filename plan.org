@@ -47,12 +47,18 @@ task review function(reviewer name)
 **** in progress
 - only the manager can call the function to await grading
 - next step
-**** awaiting grade
+**** awaiting grade (non-reputation based)
 - only non-managers can call the function to give grade
 steps
 1. input name, and grade
 2. when everyone is done
 3. next step
+How?
+***** average grade variable
+Q: how is it assigned to someone?
+A: in a mapping, there could be a list of grades which is averaged out
+    each time to calculate average reputation
+
 **** assign house cred
 - managers gets the grade averaged out
 - reaps rewards/penalities
