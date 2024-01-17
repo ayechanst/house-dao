@@ -19,10 +19,10 @@ contract YourContract {
         string[] taskForce;
         string manager;
         Status status;
-        bool approved;
     }
 
     enum Status {
+        UNACTIVE,
         ACTIVE,
         GRADING,
         EFFECT
@@ -43,8 +43,7 @@ contract YourContract {
             return Task("no task",
                         new string[](0),
                         "no one",
-                        Status.ACTIVE,
-                        false);
+                        Status.UNACTIVE);
         } else {
             return taskArray[runnerUp];
         }
@@ -59,8 +58,7 @@ contract YourContract {
         Task memory newTask = Task(name,
                                    taskForce,
                                    taskForce[0],
-                                   Status.ACTIVE,
-                                   false);
+                                   Status.ACTIVE);
         taskArray.push(newTask);
     }
 
@@ -71,10 +69,12 @@ contract YourContract {
             no++;
         }
         if ((yes + no) == numOfMembers) {
-            if (yes > numOfMembers / 2) {
-                taskArray[runnerUp].approved = true;
+            if (yes == numOfMembers / 2) {
+                taskArray[runnerUp].status = Status.ACTIVE;
+            } else if (yes > numOfMembers / 2) {
+                taskArray[runnerUp].status = Status.ACTIVE;
             } else {
-                taskArray[runnerUp].approved = false;
+                taskArray[runnerUp].status = Status.UNACTIVE;
             }
             runnerUp++;
             yes = 0;
@@ -95,30 +95,50 @@ contract YourContract {
         // task force
         string[] memory taskForce = current.taskForce; // the task force
         // grading
-        uint256 finalGrade = // / num of task force
+        uint256 totalGrade;
+        uint256 finalGrade = totalGrade / current.taskForce.length;
+        // checks if manager called
+        bool isManager;
+        if (keccak256(abi.encodePacked(memberName)) ==
+            keccak256(abi.encodePacked(manager))) {
+            isManager = true;
+        } else {
+            isManager = false;
+        }
+
         if (taskStatus == Status.ACTIVE) {
-            if (keccak256(abi.encodePacked(memberName)) ==
-                keccak256(abi.encodePacked(manager))) {
+            if (isManager) {
                 taskStatus = Status.GRADING;
             }
         } else if (taskStatus == Status.GRADING) {
-            if (keccak256(abi.encodePacked(memberName)) ==
-                keccak256(abi.encodePacked(manager))) {
-                // grade here
+            if (!isManager) {
+                totalGrade += grade;
                 taskStatus = Status.EFFECT;
             }
         } else if (taskStatus == Status.EFFECT) {
-            // TODO: give the rewards and make the correct variables for that
-            // also set new manager
+            // give the rewards and make the correct variables for that
+            reputation[manager].push(finalGrade);
             targetManager++;
             current.manager = taskForce[targetManager];
             targetTask++;
             taskStatus = Status.ACTIVE;
         } else {
-            // error
+            revert("unknown task status");
         }
-
         taskArray[targetTask] = current;
+    }
+
+    function getReputation(string memory name) public view returns(uint256 MemberReputation) {
+        uint256 tasksCompleted = reputation[name].length;
+        uint256[] memory repArray = reputation[name];
+        uint256 sum;
+        uint256 average = sum / tasksCompleted;
+
+        for (uint256 i = 0; i < repArray.length; i++) {
+                    sum += repArray[i];
+                }
+
+        return average;
 
     }
 
