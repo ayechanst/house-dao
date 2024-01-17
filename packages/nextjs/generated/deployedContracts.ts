@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+          address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
           abi: [
             {
               inputs: [
@@ -54,17 +54,25 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "string",
-                  name: "memberName",
-                  type: "string",
-                },
-                {
                   internalType: "uint256",
-                  name: "grade",
+                  name: "taskIndex",
                   type: "uint256",
                 },
               ],
-              name: "executeTask",
+              name: "completeTask",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint256",
+                  name: "taskIndex",
+                  type: "uint256",
+                },
+              ],
+              name: "cycleManager",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
@@ -81,11 +89,29 @@ const contracts = {
               outputs: [
                 {
                   internalType: "uint256",
-                  name: "MemberReputation",
+                  name: "memberReputation",
                   type: "uint256",
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint256",
+                  name: "taskIndex",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "grade",
+                  type: "uint256",
+                },
+              ],
+              name: "gradeTask",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -110,6 +136,30 @@ const contracts = {
             {
               inputs: [],
               name: "numOfMembers",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "reputation",
               outputs: [
                 {
                   internalType: "uint256",
