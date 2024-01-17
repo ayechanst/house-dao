@@ -24,8 +24,7 @@ contract YourContract {
 
     enum Status {
         UNACTIVE,
-        ACTIVE,
-        GRADING
+        ACTIVE
     }
 
     mapping(string => bool) public members;
@@ -82,12 +81,13 @@ contract YourContract {
 
     function completeTask(uint256 taskIndex) public {
         Task memory task = taskArray[taskIndex];
-        task.status = Status.GRADING;
+        require(task.status == Status.ACTIVE, "Task is not active");
         taskArray[taskIndex] = task;
     }
 
     function gradeTask(uint256 taskIndex, uint256 grade) public {
         Task memory task = taskArray[taskIndex];
+        require(task.status == Status.ACTIVE, "Task is not active");
         string memory manager = task.manager;
         totalGrade += grade;
         numOfGrades++;
@@ -101,6 +101,7 @@ contract YourContract {
 
     function cycleManager(uint256 taskIndex) public {
         Task memory task = taskArray[taskIndex];
+        require(task.status == Status.ACTIVE, "Task is not active");
         string memory manager = task.manager;
         string[] memory taskForce = task.taskForce;
         uint256 managerIndex;
@@ -111,70 +112,20 @@ contract YourContract {
             }
         }
         managerIndex++;
-        if (managerIndex > taskForce.length) {
+        if (managerIndex >= taskForce.length) {
             managerIndex = 0;
         }
         taskArray[taskIndex] = task;
     }
 
     function getReputation(string memory name) public view returns(uint256 memberReputation) {
-        uint256 tasksCompleted = reputation[name].length;
         uint256[] memory repArray = reputation[name];
-        uint256 sum;
-        uint256 average = sum / tasksCompleted;
+        uint256 tasksCompleted = reputation[name].length;
+        uint256 sumRep;
         for (uint256 i = 0; i < repArray.length; i++) {
-                sum += repArray[i];
+                sumRep += repArray[i];
             }
+        uint256 average = sumRep / tasksCompleted;
         return average;
     }
-
-    // function executeTask(string memory memberName, uint256 grade) public {
-    //     // task info
-    //     uint256 targetTask; // the index
-    //     Task memory current = taskArray[targetTask]; // the task
-    //     Status taskStatus = current.status; // the task status
-    //     // task manager
-    //     uint256 targetManager;
-    //     string memory manager = current.manager; // the task manager
-    //     // task force
-    //     string[] memory taskForce = current.taskForce; // the task force
-    //     // grading
-    //     uint256 totalGrade;
-    //     uint256 finalGrade = totalGrade / current.taskForce.length;
-    //     uint256 numOfGrades;
-    //     // checks if manager called
-    //     bool isManager;
-    //     if (keccak256(abi.encodePacked(memberName)) ==
-    //         keccak256(abi.encodePacked(manager))) {
-    //         isManager = true;
-    //     } else {
-    //         isManager = false;
-    //     }
-
-    //     if (taskStatus == Status.ACTIVE) {
-    //         if (isManager) {
-    //             taskStatus = Status.GRADING;
-    //         }
-    //     } else if (taskStatus == Status.GRADING) {
-    //         taskArray[targetTask] = current;
-    //         if (!isManager) {
-    //             totalGrade += grade;
-    //             numOfGrades++;
-    //             if (numOfGrades == current.taskForce.length) {
-    //                 numOfGrades = 0;
-    //                 reputation[manager].push(finalGrade);
-    //                 targetManager++;
-    //                 current.manager = taskForce[targetManager];
-    //                 targetTask++;
-    //                 taskStatus = Status.ACTIVE;
-    //             }
-    //         }
-    //     } else {
-    //         targetTask++;
-    //     }
-    //     // this updates the task array with the new completed task, do we need this?
-    //     // yes because it needs to remember the new manager
-    //     taskArray[targetTask] = current;
-    // }
-
 }
