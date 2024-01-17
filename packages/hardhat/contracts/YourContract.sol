@@ -12,6 +12,7 @@ import "hardhat/console.sol";
  * It also allows the owner to withdraw the Ether in the contract
  * @author BuidlGuidl
  */
+
 contract YourContract {
 
     struct Task {
@@ -58,7 +59,7 @@ contract YourContract {
         Task memory newTask = Task(name,
                                    taskForce,
                                    taskForce[0],
-                                   Status.ACTIVE);
+                                   Status.UNACTIVE);
         taskArray.push(newTask);
     }
 
@@ -76,9 +77,9 @@ contract YourContract {
             } else {
                 taskArray[runnerUp].status = Status.UNACTIVE;
             }
-            runnerUp++;
             yes = 0;
             no = 0;
+            runnerUp++;
         } else {
             return;
         }
@@ -97,6 +98,7 @@ contract YourContract {
         // grading
         uint256 totalGrade;
         uint256 finalGrade = totalGrade / current.taskForce.length;
+        uint256 numOfGrades;
         // checks if manager called
         bool isManager;
         if (keccak256(abi.encodePacked(memberName)) ==
@@ -113,33 +115,35 @@ contract YourContract {
         } else if (taskStatus == Status.GRADING) {
             if (!isManager) {
                 totalGrade += grade;
-                taskStatus = Status.EFFECT;
+                numOfGrades++;
+                if (numOfGrades == current.taskForce.length) {
+                    taskStatus = Status.EFFECT;
+                    numOfGrades = 0;
+                }
             }
         } else if (taskStatus == Status.EFFECT) {
-            // give the rewards and make the correct variables for that
             reputation[manager].push(finalGrade);
             targetManager++;
             current.manager = taskForce[targetManager];
             targetTask++;
             taskStatus = Status.ACTIVE;
         } else {
-            revert("unknown task status");
+            targetTask++;
         }
+        // this updates the task array with the new completed task, do we need this?
+        // yes because it needs to remember the new manager
         taskArray[targetTask] = current;
     }
 
     function getReputation(string memory name) public view returns(uint256 MemberReputation) {
+        // this is 0
         uint256 tasksCompleted = reputation[name].length;
         uint256[] memory repArray = reputation[name];
         uint256 sum;
         uint256 average = sum / tasksCompleted;
-
         for (uint256 i = 0; i < repArray.length; i++) {
-                    sum += repArray[i];
-                }
-
+                sum += repArray[i];
+            }
         return average;
-
     }
-
 }

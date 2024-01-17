@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+          address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
           abi: [
             {
               inputs: [
@@ -73,6 +73,25 @@ const contracts = {
               inputs: [
                 {
                   internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+              ],
+              name: "getReputation",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "MemberReputation",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
                   name: "",
                   type: "string",
                 },
@@ -91,30 +110,6 @@ const contracts = {
             {
               inputs: [],
               name: "numOfMembers",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "",
-                  type: "string",
-                },
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              name: "reputation",
               outputs: [
                 {
                   internalType: "uint256",
@@ -150,11 +145,6 @@ const contracts = {
                   name: "status",
                   type: "uint8",
                 },
-                {
-                  internalType: "bool",
-                  name: "approved",
-                  type: "bool",
-                },
               ],
               stateMutability: "view",
               type: "function",
@@ -184,11 +174,6 @@ const contracts = {
                       internalType: "enum YourContract.Status",
                       name: "status",
                       type: "uint8",
-                    },
-                    {
-                      internalType: "bool",
-                      name: "approved",
-                      type: "bool",
                     },
                   ],
                   internalType: "struct YourContract.Task",
