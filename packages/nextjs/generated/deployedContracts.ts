@@ -5,13 +5,13 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
           abi: [
             {
               inputs: [
                 {
                   internalType: "string",
-                  name: "name",
+                  name: "memberName",
                   type: "string",
                 },
               ],
@@ -78,6 +78,19 @@ const contracts = {
               type: "function",
             },
             {
+              inputs: [],
+              name: "getMembers",
+              outputs: [
+                {
+                  internalType: "string[]",
+                  name: "allMembers",
+                  type: "string[]",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
               inputs: [
                 {
                   internalType: "string",
@@ -117,30 +130,36 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "membersArray",
+              outputs: [
+                {
                   internalType: "string",
                   name: "",
                   type: "string",
-                },
-              ],
-              name: "members",
-              outputs: [
-                {
-                  internalType: "bool",
-                  name: "",
-                  type: "bool",
                 },
               ],
               stateMutability: "view",
               type: "function",
             },
             {
-              inputs: [],
-              name: "numOfMembers",
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              name: "membersMapping",
               outputs: [
                 {
-                  internalType: "uint256",
+                  internalType: "bool",
                   name: "",
-                  type: "uint256",
+                  type: "bool",
                 },
               ],
               stateMutability: "view",

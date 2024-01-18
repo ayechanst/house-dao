@@ -27,9 +27,9 @@ contract YourContract {
         ACTIVE
     }
 
-    mapping(string => bool) public members;
+    mapping(string => bool) public membersMapping;
+    string[] public membersArray;
     mapping(string => uint256[]) public reputation;
-    uint256 public numOfMembers = 0;
     Task[] public taskArray;
     uint256 runnerUp;
     //voting
@@ -50,9 +50,9 @@ contract YourContract {
         }
     }
 
-    function addMember(string memory name) public {
-        members[name] = true;
-        numOfMembers++;
+    function addMember(string memory memberName) public {
+        membersArray.push(memberName);
+        membersMapping[memberName] = true;
     }
 
     function addTask(string memory name, string[] memory taskForce) public {
@@ -69,7 +69,7 @@ contract YourContract {
         } else {
             no++;
         }
-        if ((yes + no) == numOfMembers && yes > numOfMembers / 2) {
+        if ((yes + no) == membersArray.length && yes > membersArray.length / 2) {
                 taskArray[runnerUp].status = Status.ACTIVE;
                 yes = 0;
                 no = 0;
@@ -127,5 +127,13 @@ contract YourContract {
             }
         uint256 average = sumRep / tasksCompleted;
         return average;
+    }
+
+    function getMembers() public view returns(string[] memory allMembers) {
+        allMembers = new string[](membersArray.length);
+        for (uint256 i = 0; i < membersArray.length; i++) {
+            allMembers[i] = membersArray[i];
+        }
+        return allMembers;
     }
 }
