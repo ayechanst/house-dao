@@ -6,12 +6,14 @@ import {
   SparklesIcon,
 } from '@heroicons/react/24/outline';
 import { MetaHeader } from '~~/components/MetaHeader';
+import { Drawer } from '~~/components/Drawer';
 
 const Home: NextPage = () => {
   return (
     <>
-      <div>hello</div>
-      <div>sup</div>
+      <div>DOMUS DAO</div>
+      <Drawer />
+      <div>other stuff</div>
     </>
   );
 };

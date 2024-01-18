@@ -25,7 +25,6 @@ questions
 **** other dumb way
 1. it iterates through the array and just checks if the task is approved
 
-
 *** Method 1: using helper functions
 - each task has an array of members
 - assigned member is the first index of the array
@@ -56,9 +55,12 @@ steps
 How?
 ***** average grade variable
 Q: how is it assigned to someone?
-A: in a mapping, there could be a list of grades which is averaged out
-    each time to calculate average reputation
+A:
 
 **** assign house cred
 - managers gets the grade averaged out
 - reaps rewards/penalities
+* Phase 1 walkthrough
+Test Data:
+["a", "s", "d", "f", "g"]
+** Global variables
