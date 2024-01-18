@@ -1,4 +1,5 @@
 import { AddMember } from './AddMember';
+import { AddTask } from './AddTask';
 
 export const Drawer = () => {
   return (
@@ -19,15 +20,7 @@ export const Drawer = () => {
         <ul className="menu p-4 w-1/2 min-h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
           <AddMember />
-          <label htmlFor="my-drawer" className="btn btn-primary drawer-button">
-            close drawer
-          </label>
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
+          <AddTask />
         </ul>
       </div>
     </div>
