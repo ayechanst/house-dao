@@ -1,3 +1,4 @@
+'use client';
 // import Link from 'next/link';
 import type { NextPage } from 'next';
 import {
@@ -6,7 +7,6 @@ import {
   SparklesIcon,
 } from '@heroicons/react/24/outline';
 import { Drawer } from '~~/components/Drawer';
-import { AddMember } from '~~/components/AddMember';
 
 const Home: NextPage = () => {
   return (
