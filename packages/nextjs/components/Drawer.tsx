@@ -1,3 +1,5 @@
+import { AddMember } from './AddMember';
+
 export const Drawer = () => {
   return (
     <div className="drawer">
@@ -8,14 +10,18 @@ export const Drawer = () => {
           Open drawer
         </label>
       </div>
-      <div className="drawer-side">
+      <div className="drawer-side w-1/2">
         <label
           htmlFor="my-drawer"
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+        <ul className="menu p-4 w-1/2 min-h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
+          <AddMember />
+          <label htmlFor="my-drawer" className="btn btn-primary drawer-button">
+            close drawer
+          </label>
           <li>
             <a>Sidebar Item 1</a>
           </li>
