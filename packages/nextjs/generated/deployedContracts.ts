@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
           abi: [
             {
               inputs: [
@@ -135,6 +135,11 @@ const contracts = {
                       name: "status",
                       type: "uint8",
                     },
+                    {
+                      internalType: "uint256",
+                      name: "taskIndex",
+                      type: "uint256",
+                    },
                   ],
                   internalType: "struct YourContract.Task[]",
                   name: "allTasks",
@@ -249,6 +254,11 @@ const contracts = {
                   name: "status",
                   type: "uint8",
                 },
+                {
+                  internalType: "uint256",
+                  name: "taskIndex",
+                  type: "uint256",
+                },
               ],
               stateMutability: "view",
               type: "function",
@@ -278,6 +288,11 @@ const contracts = {
                       internalType: "enum YourContract.Status",
                       name: "status",
                       type: "uint8",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "taskIndex",
+                      type: "uint256",
                     },
                   ],
                   internalType: "struct YourContract.Task",

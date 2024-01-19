@@ -16,24 +16,30 @@ export const TaskDisplay = () => {
     functionName: 'getTasks',
   });
 
-  taskObjectArray?.forEach(task => {
-    if (task.status != 0) {
-      activeTasks.push(task);
-    }
+  // taskObjectArray?.forEach((task: TaskObject) => {
+  //   if (task.status != 0) {
+  //     activeTasks.push(task);
+  //   }
+  // });
+
+  taskObjectArray?.forEach((task: TaskObject) => {
+    activeTasks.push(task);
   });
 
   return (
     <>
       <div className="grid grid-cols-4 gap-3">
         {activeTasks?.map(task => {
-          <Task
-            key={task.index}
-            taskName={task.name}
-            taskManager={task.manager}
-            taskForce={task.taskForce}
-            taskStatus={task.status}
-            taskIndex={task.index}
-          />;
+          return (
+            <Task
+              key={task.index}
+              taskName={task.name}
+              taskManager={task.manager}
+              taskForce={task.taskForce}
+              taskStatus={task.status}
+              taskIndex={task.index}
+            />
+          );
         })}
       </div>
     </>

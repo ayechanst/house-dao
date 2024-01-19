@@ -20,8 +20,8 @@ export const Task = ({
   // variables
   //
   const [taskGrade, setTaskGrade] = useState('');
-  const gradeAsBigInt = BigInt(taskGrade);
-  const indexAsBigInt = BigInt(taskIndex);
+  const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
+  const indexAsBigInt = taskIndex !== undefined ? BigInt(taskIndex) : BigInt(0);
   //
   // task completion
   //
