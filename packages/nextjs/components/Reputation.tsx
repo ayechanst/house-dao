@@ -8,7 +8,7 @@ export const Reputation = () => {
 
   let readArray: string[] = [];
 
-  memberArray?.forEach(member => readArray.push(member));
+  memberArray?.forEach(member => readArray.push(member as string));
 
   return (
     <>
@@ -18,8 +18,9 @@ export const Reputation = () => {
           {readArray.map(member => {
             return (
               <>
-                <div>Hello</div>
-                <div>{member}</div>
+                <div key={member}>
+                  <div>{member}</div>
+                </div>
               </>
             );
           })}

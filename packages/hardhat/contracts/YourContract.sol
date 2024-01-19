@@ -24,7 +24,8 @@ contract YourContract {
 
     enum Status {
         UNACTIVE,
-        ACTIVE
+        ACTIVE,
+        GRADING
     }
 
     mapping(string => bool) public membersMapping;
@@ -102,12 +103,13 @@ contract YourContract {
     function completeTask(uint256 taskIndex) public {
         Task memory task = taskArray[taskIndex];
         require(task.status == Status.ACTIVE, "Task is not active");
+        task.status = Status.GRADING;
         taskArray[taskIndex] = task;
     }
 
     function gradeTask(uint256 taskIndex, uint256 grade) public {
         Task memory task = taskArray[taskIndex];
-        require(task.status == Status.ACTIVE, "Task is not active");
+        require(task.status == Status.GRADING, "Task is not done yet");
         string memory manager = task.manager;
         totalGrade += grade;
         numOfGrades++;
@@ -115,6 +117,7 @@ contract YourContract {
             uint256 finalGrade = totalGrade / task.taskForce.length;
             reputation[manager].push(finalGrade);
             numOfGrades = 0;
+            task.status = Status.ACTIVE;
             taskArray[taskIndex] = task;
         }
     }
