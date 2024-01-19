@@ -20,6 +20,7 @@ contract YourContract {
         string[] taskForce;
         string manager;
         Status status;
+        uint256 taskIndex;
     }
 
     enum Status {
@@ -45,7 +46,8 @@ contract YourContract {
             return Task("no task",
                         new string[](0),
                         "no one",
-                        Status.UNACTIVE);
+                        Status.UNACTIVE,
+                        0);
         } else {
             return taskArray[runnerUp];
         }
@@ -65,10 +67,12 @@ contract YourContract {
     }
 
     function addTask(string memory name, string[] memory taskForce) public {
+        uint256 newTaskIndex = taskArray.length + 1;
         Task memory newTask = Task(name,
                                    taskForce,
                                    taskForce[0],
-                                   Status.UNACTIVE);
+                                   Status.UNACTIVE,
+                                   newTaskIndex);
         taskArray.push(newTask);
     }
 
