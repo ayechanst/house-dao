@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+          address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
           abi: [
             {
               inputs: [
@@ -104,6 +104,41 @@ const contracts = {
                   internalType: "uint256",
                   name: "memberReputation",
                   type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getTasks",
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "string",
+                      name: "name",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string[]",
+                      name: "taskForce",
+                      type: "string[]",
+                    },
+                    {
+                      internalType: "string",
+                      name: "manager",
+                      type: "string",
+                    },
+                    {
+                      internalType: "enum YourContract.Status",
+                      name: "status",
+                      type: "uint8",
+                    },
+                  ],
+                  internalType: "struct YourContract.Task[]",
+                  name: "allTasks",
+                  type: "tuple[]",
                 },
               ],
               stateMutability: "view",

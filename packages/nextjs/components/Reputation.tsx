@@ -5,11 +5,10 @@ export const Reputation = () => {
     contractName: 'YourContract',
     functionName: 'getMembers',
   });
+
   let readArray: string[] = [];
 
-  if (memberArray) {
-    memberArray.forEach(member => readArray.push(member));
-  }
+  memberArray?.forEach(member => readArray.push(member));
 
   return (
     <>
@@ -17,7 +16,12 @@ export const Reputation = () => {
         <div className="card-body">
           <h2 className="card-title">Reputation</h2>
           {readArray.map(member => {
-            return <div>{member}</div>;
+            return (
+              <>
+                <div>Hello</div>
+                <div>{member}</div>
+              </>
+            );
           })}
         </div>
       </div>

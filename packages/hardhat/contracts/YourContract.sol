@@ -55,6 +55,14 @@ contract YourContract {
         membersMapping[memberName] = true;
     }
 
+    function getMembers() public view returns(string[] memory allMembers) {
+        allMembers = new string[](membersArray.length);
+        for (uint256 i = 0; i < membersArray.length; i++) {
+            allMembers[i] = membersArray[i];
+        }
+        return allMembers;
+    }
+
     function addTask(string memory name, string[] memory taskForce) public {
         Task memory newTask = Task(name,
                                    taskForce,
@@ -62,6 +70,18 @@ contract YourContract {
                                    Status.UNACTIVE);
         taskArray.push(newTask);
     }
+
+    function getTasks() public view returns(Task[] memory allTasks) {
+        allTasks = new Task[](taskArray.length);
+        for (uint256 i = 0; i < taskArray.length; i++) {
+            if (taskArray[i].status == Status.ACTIVE) {
+                allTasks[i] = taskArray[i];
+            }
+        }
+            return allTasks;
+    }
+
+    // TODO: use getTasks in the front end drawer!
 
     function ballot(bool vote) public {
         if (vote) {
@@ -129,11 +149,4 @@ contract YourContract {
         return average;
     }
 
-    function getMembers() public view returns(string[] memory allMembers) {
-        allMembers = new string[](membersArray.length);
-        for (uint256 i = 0; i < membersArray.length; i++) {
-            allMembers[i] = membersArray[i];
-        }
-        return allMembers;
-    }
 }
