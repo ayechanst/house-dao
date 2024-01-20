@@ -59,7 +59,7 @@ export const VotingQue = () => {
               <div>No tasks for voting atm!</div>
             )}
           </div>
-          <div className="flex justify-between">
+          <div className="flex items-stretch justify-between">
             <button
               onClick={() => handleVote(true)}
               className="btn btn-success"
