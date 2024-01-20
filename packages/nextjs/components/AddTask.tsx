@@ -54,7 +54,6 @@ export const AddTask = () => {
             />
             {readArray?.map((name, index) => (
               <div key={index} className="py-1">
-                {index}
                 <label className="flex">
                   <input
                     type="checkbox"

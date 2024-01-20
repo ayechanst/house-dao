@@ -67,7 +67,7 @@ contract YourContract {
     }
 
     function addTask(string memory name, string[] memory taskForce) public {
-        uint256 newTaskIndex = taskArray.length + 1;
+        uint256 newTaskIndex = taskArray.length;
         Task memory newTask = Task(name,
                                    taskForce,
                                    taskForce[0],

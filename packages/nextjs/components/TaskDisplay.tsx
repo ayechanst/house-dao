@@ -16,14 +16,10 @@ export const TaskDisplay = () => {
     functionName: 'getTasks',
   });
 
-  // taskObjectArray?.forEach((task: TaskObject) => {
-  //   if (task.status != 0) {
-  //     activeTasks.push(task);
-  //   }
-  // });
-
   taskObjectArray?.forEach((task: TaskObject) => {
-    activeTasks.push(task);
+    if (task.status !== 0) {
+      activeTasks.push(task);
+    }
   });
 
   return (
