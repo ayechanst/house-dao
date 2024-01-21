@@ -58,7 +58,7 @@ export const Task = ({
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body p-5">
           <h2 className="card-title">{taskName}</h2>
-          <p>{taskManager}</p>
+          <p>Task Manager: {taskManager}</p>
           <p>{taskForce}</p>
           <div className="card-actions justify-center">
             {taskStatus == 1 && (
