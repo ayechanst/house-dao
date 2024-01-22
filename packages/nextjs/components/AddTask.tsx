@@ -52,18 +52,20 @@ export const AddTask = () => {
               value={taskName}
               onChange={e => setTaskName(e.target.value)}
             />
-            {readArray?.map((name, index) => (
-              <div key={index} className="py-1">
-                <label className="flex">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    onChange={() => handleCheckbox(name)}
-                  />
-                  <div className="px-3">{name}</div>
-                </label>
-              </div>
-            ))}
+            <div className="grid grid-cols-2 gap-2">
+              {readArray?.map((name, index) => (
+                <div key={index} className="py-1">
+                  <label className="flex">
+                    <input
+                      type="checkbox"
+                      className="checkbox"
+                      onChange={() => handleCheckbox(name)}
+                    />
+                    <div className="px-3">{name}</div>
+                  </label>
+                </div>
+              ))}
+            </div>
             <button type="submit" className="btn btn-primary ml-3">
               Add
             </button>
