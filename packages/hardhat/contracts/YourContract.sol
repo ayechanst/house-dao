@@ -26,7 +26,8 @@ contract YourContract {
     enum Status {
         UNACTIVE,
         ACTIVE,
-        GRADING
+        GRADING,
+        REJECTED
     }
 
     mapping(string => bool) public membersMapping;
@@ -89,20 +90,44 @@ contract YourContract {
     }
 
     function ballot(bool vote) public {
+        bool ready;
+        uint256 majority = (membersArray.length * 1000) / 2000;
         if (vote) {
             yes++;
         } else {
             no++;
         }
-        if ((yes + no) == membersArray.length && yes > membersArray.length / 2) {
-                taskArray[runnerUp].status = Status.ACTIVE;
-                yes = 0;
-                no = 0;
-                runnerUp++;
-            } else {
-                taskArray[runnerUp].status = Status.UNACTIVE;
-                runnerUp++;
-            }
+
+        if (((yes * 1000) + (no * 1000)) >= majority) {
+            ready = true;
+        }
+
+        if (!ready) {
+            taskArray[runnerUp].status = Status.UNACTIVE;
+        } else if (ready && (yes * 1000) > majority) {
+            taskArray[runnerUp].status = Status.ACTIVE;
+            yes = 0;
+            no = 0;
+            runnerUp++;
+        } else {
+            taskArray[runnerUp].status = Status.REJECTED;
+            yes = 0;
+            no = 0;
+            runnerUp++;
+        }
+        // if ((yes + no) == membersArray.length && yes > membersArray.length / 2) {
+        //     taskArray[runnerUp].status = Status.ACTIVE;
+        //     yes = 0;
+        //     no = 0;
+        //     runnerUp++;
+        // } else if ((yes + no) == membersArray.length && yes < membersArray.length / 2) {
+        //     taskArray[runnerUp].status = Status.REJECTED;
+        //     yes = 0;
+        //     no = 0;
+        //     runnerUp++;
+        // } else {
+        //     taskArray[runnerUp].status = Status.UNACTIVE;
+        // }
     }
 
     function completeTask(uint256 taskIndex) public {

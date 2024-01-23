@@ -41,19 +41,21 @@ export const VotingQue = () => {
         <div className="card-body p-5">
           <h2 className="card-title">Vote on this!</h2>
           <div>
-            {votingTask && task?.status === 0 && (
-              <Task
-                key={task?.index}
-                taskName={task.name}
-                taskManager={task.manager}
-                taskForce={task.taskForce}
-                taskStatus={task.status}
-                taskIndex={task.index}
-              />
-            )}
-            {votingTask && task?.status !== 0 && (
-              <div>No tasks for voting atm!</div>
-            )}
+            {votingTask &&
+              task?.status === 0 && ( // the previous task wins
+                <Task
+                  key={task?.index}
+                  taskName={task.name}
+                  taskManager={task.manager}
+                  taskForce={task.taskForce}
+                  taskStatus={task.status}
+                  taskIndex={task.index}
+                />
+              )}
+            {votingTask &&
+              task?.status === 3 && ( // there are no new tasks
+                <div>No tasks for voting atm!</div>
+              )}
           </div>
           <div className="flex items-stretch justify-around">
             <button
