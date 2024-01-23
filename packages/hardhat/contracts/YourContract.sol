@@ -42,12 +42,17 @@ contract YourContract {
     uint256 numOfGrades;
 
     function votingTask() public view returns(Task memory) {
+        // if array is empty
         if (taskArray.length < 1) {
-            return Task("no task",
+            return Task("this is a blank task",
                         new string[](0),
-                        "no one",
+                        "no one yet!",
                         Status.UNACTIVE,
                         0);
+        } else if () { // the previous task was not voted for
+
+        } else if () {
+
         } else {
             return taskArray[runnerUp];
         }
@@ -85,8 +90,6 @@ contract YourContract {
         }
             return allTasks;
     }
-
-    // TODO: use getTasks in the front end drawer!
 
     function ballot(bool vote) public {
         if (vote) {
