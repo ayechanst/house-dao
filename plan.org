@@ -1,69 +1,37 @@
 House DAO
 
-* Cool features
-** House Cred
-Every member has "house cred" which is just reputation
-* Phase 1
-** members
-are in an mapping
-** task creation
-people make task structs that go in a que array
-** voting
-*** Method 1
-1. the oldest task is eligible for voting
-2. after voting is done next task is up for voting
-3. if wins, it gets pushed to active tasks
-4. if it loses, nothing happens and next task is up for voting
-** task execution
-questions
-*** how does it know which task?
-**** good way
-1. ideally an amount of time passed
-2. click a button to make pass fake "time"
-**** dumb way
-1. task is input as a param
-**** other dumb way
-1. it iterates through the array and just checks if the task is approved
-
-*** Method 1: using helper functions
-- each task has an array of members
-- assigned member is the first index of the array
-
-task exection function()
-- alters between done func and review func
-
-task done function()
-1. assigned member marks the task as completed
-2. task is set to done and is now open for review
-
-task review function(reviewer name)
-1. grades task
-2. when all members review tasks
-3. moves to next member and marks status as not done
-
-*** Method 2: using enums for status
-- tasks have states => in progress, awaiting grade, result
-**** in progress
-- only the manager can call the function to await grading
-- next step
-**** awaiting grade (non-reputation based)
-- only non-managers can call the function to give grade
-steps
-1. input name, and grade
-2. when everyone is done
-3. next step
-How?
-***** average grade variable
-Q: how is it assigned to someone?
-A:
-
-**** assign house cred
-- managers gets the grade averaged out
-- reaps rewards/penalities
 * Phase 1 walkthrough
-Test Data:
-["a", "s", "d", "f", "g"]
 ** Global variables
+- membersMapping
+  just returns true or false if member is there
+- membersArray
+  array of strings of group members
+- taskArray
+  has all the tasks
+- runnerUp
+  - variable is increased each time a task is voted to be active
+  - it is used in ballot() to represent the task being voted on
+** Functions
+*** votingTask()
+- returns a task at the index of the runnerUp
+- if there are no tasks it will return a blank one
+We have 4 scenarios:
+- [X] No tasks yet at all
+  - we can return a blank task that tells the UI to load a different component
+- [ ] The previous task wins
+  - move onto the next task in the que
+- [ ] The previous task wins and there are no new ones
+- [ ] The previous task loses
+- [ ] The previous task loses and there are no new ones
+  - return a blank task
+*** ballot()
+- ticks up yes or no as votes flow in
+if a task wins:
+1. the runner up is set to active
+2. yes and no are reset to 0
+3. runner up ticks up to prepare ballot for the next task to vote on
+else:
+1. the runner up remains inactive
 
 * Phase 2 ideas
 - ppl can see votes in favor

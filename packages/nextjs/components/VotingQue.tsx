@@ -35,11 +35,6 @@ export const VotingQue = () => {
     writeAsync();
   }
 
-  // let displayTask = true;
-  // if (task?.status !== 0) {
-  //   displayTask = false;
-  // }
-
   return (
     <>
       <div className="card max-w-screen bg-base-100 shadow-xl mt-5">
@@ -56,7 +51,9 @@ export const VotingQue = () => {
                 taskIndex={task.index}
               />
             )}
-            {!votingTask && <div>No tasks for voting atm!</div>}
+            {votingTask && task?.status !== 0 && (
+              <div>No tasks for voting atm!</div>
+            )}
           </div>
           <div className="flex items-stretch justify-around">
             <button

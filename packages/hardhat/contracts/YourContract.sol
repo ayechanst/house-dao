@@ -44,15 +44,12 @@ contract YourContract {
     function votingTask() public view returns(Task memory) {
         // if array is empty
         if (taskArray.length < 1) {
-            return Task("this is a blank task",
+            return Task(
+                        "blank",
                         new string[](0),
-                        "no one yet!",
+                        "no one",
                         Status.UNACTIVE,
                         0);
-        } else if () { // the previous task was not voted for
-
-        } else if () {
-
         } else {
             return taskArray[runnerUp];
         }
@@ -104,6 +101,7 @@ contract YourContract {
                 runnerUp++;
             } else {
                 taskArray[runnerUp].status = Status.UNACTIVE;
+                runnerUp++;
             }
     }
 
