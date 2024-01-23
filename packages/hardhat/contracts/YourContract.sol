@@ -90,44 +90,25 @@ contract YourContract {
     }
 
     function ballot(bool vote) public {
-        bool ready;
-        uint256 majority = (membersArray.length * 1000) / 2000;
         if (vote) {
             yes++;
         } else {
             no++;
         }
 
-        if (((yes * 1000) + (no * 1000)) >= majority) {
-            ready = true;
-        }
-
-        if (!ready) {
-            taskArray[runnerUp].status = Status.UNACTIVE;
-        } else if (ready && (yes * 1000) > majority) {
+        if ((yes + no) == membersArray.length && yes > membersArray.length / 2) {
             taskArray[runnerUp].status = Status.ACTIVE;
             yes = 0;
             no = 0;
             runnerUp++;
-        } else {
+        } else if ((yes + no) == membersArray.length && no > membersArray.length / 2) {
             taskArray[runnerUp].status = Status.REJECTED;
             yes = 0;
             no = 0;
             runnerUp++;
+        } else {
+            taskArray[runnerUp].status = Status.UNACTIVE;
         }
-        // if ((yes + no) == membersArray.length && yes > membersArray.length / 2) {
-        //     taskArray[runnerUp].status = Status.ACTIVE;
-        //     yes = 0;
-        //     no = 0;
-        //     runnerUp++;
-        // } else if ((yes + no) == membersArray.length && yes < membersArray.length / 2) {
-        //     taskArray[runnerUp].status = Status.REJECTED;
-        //     yes = 0;
-        //     no = 0;
-        //     runnerUp++;
-        // } else {
-        //     taskArray[runnerUp].status = Status.UNACTIVE;
-        // }
     }
 
     function completeTask(uint256 taskIndex) public {
