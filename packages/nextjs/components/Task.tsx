@@ -52,36 +52,78 @@ export const Task = ({
   function handleGrade() {
     writeGrade();
   }
+  //
+  // task cycle
+  //
+  const { writeAsync: cycleManager } = useScaffoldContractWrite({
+    contractName: 'YourContract',
+    functionName: 'cycleManager',
+    args: [indexAsBigInt],
+    onBlockConfirmation: txnReceipt => {
+      console.log('purchase logged', txnReceipt.blockHash);
+    },
+  });
+
+  function handleManager() {
+    cycleManager();
+  }
 
   return (
     <>
-      <div className="card w-96 bg-base-100 shadow-xl">
-        <div className="card-body p-5">
-          <h2 className="card-title">{taskName}</h2>
-          <p>Task Manager: {taskManager}</p>
-          <p>{taskForce}</p>
-          <div className="card-actions justify-center">
-            {taskStatus == 1 && (
+      {taskStatus == 1 && (
+        <div className="card w-96 bg-base-100 shadow-xl">
+          <div className="card-body p-5">
+            <h2 className="card-title">{taskName}</h2>
+            <p>Task Manager: {taskManager}</p>
+            <p>{taskForce}</p>
+            <div className="card-actions justify-center">
               <button onClick={handleComplete} className="btn btn-primary">
                 Done
               </button>
-            )}
-            {taskStatus == 2 && (
-              <form onSubmit={handleGrade}>
+            </div>
+          </div>
+        </div>
+      )}
+      {taskStatus == 2 && (
+        <div className="card w-96 bg-base-100 shadow-xl">
+          <div className="card-body p-5">
+            <h2 className="card-title">{taskName}</h2>
+            <p>Task Manager: {taskManager}</p>
+            <p>{taskForce}</p>
+            <div className="card-actions justify-center">
+              <form>
+                {' '}
+                // TODO: cycle manager
                 <input
-                  type="number"
-                  placeholder="How is it out of 10?"
+                  type="text"
+                  placeholder="grade / 10"
                   onChange={e => setTaskGrade(e.target.value)}
                   className="input input-bordered w-full max-w-xs"
                 />
-                <button type="submit" className="btn btn-primary">
+                <button onClick={handleGrade} className="btn btn-primary">
                   Grade
                 </button>
               </form>
-            )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
+      {/*       {taskStatus == 2 && ( */}
+      {/*         <form onSubmit={handleGrade}> */}
+      {/*           <input */}
+      {/*             type="number" */}
+      {/*             placeholder="How is it out of 10?" */}
+      {/*             onChange={e => setTaskGrade(e.target.value)} */}
+      {/*             className="input input-bordered w-full max-w-xs" */}
+      {/*           /> */}
+      {/*           <button type="submit" className="btn btn-primary"> */}
+      {/*             Grade */}
+      {/*           </button> */}
+      {/*         </form> */}
+      {/*       )} */}
+      {/*     </div> */}
+      {/*   </div> */}
+      {/* </div> */}
     </>
   );
 };

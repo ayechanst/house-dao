@@ -113,14 +113,14 @@ contract YourContract {
 
     function completeTask(uint256 taskIndex) public {
         Task memory task = taskArray[taskIndex];
-        require(task.status == Status.ACTIVE, "Task is not active");
+        // require(task.status == Status.ACTIVE, "Task is not active");
         task.status = Status.GRADING;
         taskArray[taskIndex] = task;
     }
 
     function gradeTask(uint256 taskIndex, uint256 grade) public {
         Task memory task = taskArray[taskIndex];
-        require(task.status == Status.GRADING, "Task is not done yet");
+        // require(task.status == Status.GRADING, "Task is not done yet");
         string memory manager = task.manager;
         totalGrade += grade;
         numOfGrades++;
@@ -135,7 +135,7 @@ contract YourContract {
 
     function cycleManager(uint256 taskIndex) public {
         Task memory task = taskArray[taskIndex];
-        require(task.status == Status.ACTIVE, "Task is not active");
+        // require(task.status == Status.ACTIVE, "Task is not active");
         string memory manager = task.manager;
         string[] memory taskForce = task.taskForce;
         uint256 managerIndex;
