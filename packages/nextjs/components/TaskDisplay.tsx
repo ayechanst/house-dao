@@ -17,7 +17,9 @@ export const TaskDisplay = () => {
   });
 
   taskObjectArray?.forEach((task: TaskObject) => {
-    if (task.status !== 0) {
+    if (task.status == 1) {
+      activeTasks.push(task);
+    } else if (task.status == 2) {
       activeTasks.push(task);
     }
   });

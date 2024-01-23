@@ -1,4 +1,6 @@
 House DAO
+TODO: get tasks to change state between active and grading. look in TaskDisplay could be there
+or useState could be an alternative
 
 * Phase 1 walkthrough
 ** Global variables
@@ -18,7 +20,7 @@ House DAO
 We have 4 scenarios:
 - [X] No tasks yet at all
   - we can return a blank task that tells the UI to load a different component
-- [ ] The previous task wins
+- [X] The previous task wins
   - move onto the next task in the que
 - [ ] The previous task wins and there are no new ones
 - [ ] The previous task loses

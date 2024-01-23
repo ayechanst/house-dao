@@ -22,68 +22,59 @@ export const Task = ({
   const [taskGrade, setTaskGrade] = useState('');
   const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
   const indexAsBigInt = taskIndex !== undefined ? BigInt(taskIndex) : BigInt(0);
-  //
-  // task completion
-  //
+
+  const { writeAsync: cycleManager } = useScaffoldContractWrite({
+    contractName: 'YourContract',
+    functionName: 'cycleManager',
+    args: [indexAsBigInt],
+    // onBlockConfirmation: txnReceipt => {
+    //   console.log('purchase logged', txnReceipt.blockHash);
+    // },
+  });
+
   const { writeAsync: writeComplete } = useScaffoldContractWrite({
     contractName: 'YourContract',
     functionName: 'completeTask',
     args: [indexAsBigInt],
-    onBlockConfirmation: txnReceipt => {
-      console.log('purchase logged', txnReceipt.blockHash);
-    },
+    // onBlockConfirmation: txnReceipt => {
+    //   console.log('purchase logged', txnReceipt.blockHash);
+    // },
+  });
+
+  const { writeAsync: writeGrade } = useScaffoldContractWrite({
+    contractName: 'YourContract',
+    functionName: 'gradeTask',
+    args: [indexAsBigInt, gradeAsBigInt],
+    // onBlockConfirmation: txnReceipt => {
+    //   console.log('task graded', txnReceipt.blockHash);
+    // },
   });
 
   function handleComplete() {
     writeComplete();
   }
-  //
-  // task grading
-  //
-  const { writeAsync: writeGrade } = useScaffoldContractWrite({
-    contractName: 'YourContract',
-    functionName: 'gradeTask',
-    args: [indexAsBigInt, gradeAsBigInt],
-    onBlockConfirmation: txnReceipt => {
-      console.log('purchase logged', txnReceipt.blockHash);
-    },
-  });
 
-  function handleGrade() {
+  function handleSubmit() {
     writeGrade();
-  }
-  //
-  // task cycle
-  //
-  const { writeAsync: cycleManager } = useScaffoldContractWrite({
-    contractName: 'YourContract',
-    functionName: 'cycleManager',
-    args: [indexAsBigInt],
-    onBlockConfirmation: txnReceipt => {
-      console.log('purchase logged', txnReceipt.blockHash);
-    },
-  });
-
-  function handleManager() {
     cycleManager();
   }
 
   return (
     <>
-      {taskStatus == 1 && (
-        <div className="card w-96 bg-base-100 shadow-xl">
-          <div className="card-body p-5">
-            <h2 className="card-title">{taskName}</h2>
-            <p>Task Manager: {taskManager}</p>
-            <p>{taskForce}</p>
-            <div className="card-actions justify-center">
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body p-5">
+          <h2 className="card-title">{taskName}</h2>
+          <p>Task Manager: {taskManager}</p>
+          <p>{taskForce}</p>
+          <div className="card-actions justify-center">
+            {taskStatus == 1 && (
               <button onClick={handleComplete} className="btn btn-primary">
                 Done
               </button>
-            </div>
+            )}
           </div>
         </div>
-      )}
+      </div>
       {taskStatus == 2 && (
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body p-5">
@@ -91,16 +82,14 @@ export const Task = ({
             <p>Task Manager: {taskManager}</p>
             <p>{taskForce}</p>
             <div className="card-actions justify-center">
-              <form>
-                {' '}
-                // TODO: cycle manager
+              <form onSubmit={handleSubmit}>
                 <input
                   type="text"
                   placeholder="grade / 10"
                   onChange={e => setTaskGrade(e.target.value)}
                   className="input input-bordered w-full max-w-xs"
                 />
-                <button onClick={handleGrade} className="btn btn-primary">
+                <button type="submit" className="btn btn-primary">
                   Grade
                 </button>
               </form>
