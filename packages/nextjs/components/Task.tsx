@@ -45,7 +45,8 @@ export const Task = ({
   //   writeComplete();
   // }
 
-  function handleSubmit() {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     writeGrade();
     cycleManager();
   }
@@ -54,42 +55,38 @@ export const Task = ({
     <>
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body p-5">
-          <h2 className="card-title">{taskName}</h2>
-          <p>Task Manager: {taskManager}</p>
-          <p>{taskForce}</p>
+          <div className="card-title">{taskName}</div>
+          <div className="flex">
+            <div className="font-bold mr-3">Task Manager:</div>
+            <div>{taskManager}</div>
+          </div>
+          <div>
+            <div className="font-bold">Task Force:</div>
+            {taskForce.map(member => {
+              return (
+                <div>
+                  <div>{member}</div>
+                </div>
+              );
+            })}
+          </div>
           <div className="card-actions justify-center">
             {taskStatus !== 0 && (
               <form onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  placeholder="grade / 10"
+                  placeholder="grade"
                   onChange={e => setTaskGrade(e.target.value)}
                   className="input input-bordered w-full max-w-xs"
                 />
                 <button type="submit" className="btn btn-primary mt-5">
-                  Grade
+                  Submit Grade
                 </button>
               </form>
             )}
           </div>
         </div>
       </div>
-      {/*       {taskStatus == 2 && ( */}
-      {/*         <form onSubmit={handleGrade}> */}
-      {/*           <input */}
-      {/*             type="number" */}
-      {/*             placeholder="How is it out of 10?" */}
-      {/*             onChange={e => setTaskGrade(e.target.value)} */}
-      {/*             className="input input-bordered w-full max-w-xs" */}
-      {/*           /> */}
-      {/*           <button type="submit" className="btn btn-primary"> */}
-      {/*             Grade */}
-      {/*           </button> */}
-      {/*         </form> */}
-      {/*       )} */}
-      {/*     </div> */}
-      {/*   </div> */}
-      {/* </div> */}
     </>
   );
 };
