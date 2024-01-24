@@ -29,11 +29,11 @@ export const Task = ({
     args: [indexAsBigInt],
   });
 
-  const { writeAsync: writeComplete } = useScaffoldContractWrite({
-    contractName: 'YourContract',
-    functionName: 'completeTask',
-    args: [indexAsBigInt],
-  });
+  // const { writeAsync: writeComplete } = useScaffoldContractWrite({
+  //   contractName: 'YourContract',
+  //   functionName: 'completeTask',
+  //   args: [indexAsBigInt],
+  // });
 
   const { writeAsync: writeGrade } = useScaffoldContractWrite({
     contractName: 'YourContract',
@@ -41,9 +41,9 @@ export const Task = ({
     args: [indexAsBigInt, gradeAsBigInt],
   });
 
-  function handleComplete() {
-    writeComplete();
-  }
+  // function handleComplete() {
+  //   writeComplete();
+  // }
 
   function handleSubmit() {
     writeGrade();
@@ -58,12 +58,7 @@ export const Task = ({
           <p>Task Manager: {taskManager}</p>
           <p>{taskForce}</p>
           <div className="card-actions justify-center">
-            {taskStatus == 1 && (
-              <button onClick={handleComplete} className="btn btn-primary">
-                Done
-              </button>
-            )}
-            {taskStatus == 2 && (
+            {taskStatus !== 0 && (
               <form onSubmit={handleSubmit}>
                 <input
                   type="text"
@@ -71,7 +66,7 @@ export const Task = ({
                   onChange={e => setTaskGrade(e.target.value)}
                   className="input input-bordered w-full max-w-xs"
                 />
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary mt-5">
                   Grade
                 </button>
               </form>
