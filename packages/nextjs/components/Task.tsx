@@ -27,27 +27,18 @@ export const Task = ({
     contractName: 'YourContract',
     functionName: 'cycleManager',
     args: [indexAsBigInt],
-    // onBlockConfirmation: txnReceipt => {
-    //   console.log('purchase logged', txnReceipt.blockHash);
-    // },
   });
 
   const { writeAsync: writeComplete } = useScaffoldContractWrite({
     contractName: 'YourContract',
     functionName: 'completeTask',
     args: [indexAsBigInt],
-    // onBlockConfirmation: txnReceipt => {
-    //   console.log('purchase logged', txnReceipt.blockHash);
-    // },
   });
 
   const { writeAsync: writeGrade } = useScaffoldContractWrite({
     contractName: 'YourContract',
     functionName: 'gradeTask',
     args: [indexAsBigInt, gradeAsBigInt],
-    // onBlockConfirmation: txnReceipt => {
-    //   console.log('task graded', txnReceipt.blockHash);
-    // },
   });
 
   function handleComplete() {
@@ -72,16 +63,7 @@ export const Task = ({
                 Done
               </button>
             )}
-          </div>
-        </div>
-      </div>
-      {taskStatus == 2 && (
-        <div className="card w-96 bg-base-100 shadow-xl">
-          <div className="card-body p-5">
-            <h2 className="card-title">{taskName}</h2>
-            <p>Task Manager: {taskManager}</p>
-            <p>{taskForce}</p>
-            <div className="card-actions justify-center">
+            {taskStatus == 2 && (
               <form onSubmit={handleSubmit}>
                 <input
                   type="text"
@@ -93,10 +75,10 @@ export const Task = ({
                   Grade
                 </button>
               </form>
-            </div>
+            )}
           </div>
         </div>
-      )}
+      </div>
       {/*       {taskStatus == 2 && ( */}
       {/*         <form onSubmit={handleGrade}> */}
       {/*           <input */}
