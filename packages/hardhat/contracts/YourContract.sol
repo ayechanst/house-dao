@@ -69,6 +69,23 @@ contract YourContract {
         return allMembers;
     }
 
+    // what will this return? => an array of averages with an index corresponding to the member
+    function getReputation() public view returns(uint256[] memory allAverages) {
+        allAverages = new uint256[](membersArray.length);
+        uint256 sumRep;
+        for (uint256 j = 0; j < membersArray.length; j++) {
+            string memory name = membersArray[j];
+            uint256[] memory repArray = reputation[name];
+            uint256 tasksCompleted = reputation[name].length;
+            for (uint256 i = 0; i < repArray.length; i++) {
+                    sumRep += repArray[i];
+                }
+            uint256 average = sumRep / tasksCompleted;
+            allAverages[j] = average;
+        }
+        return allAverages;
+    }
+
     function addTask(string memory name, string[] memory taskForce) public {
         uint256 newTaskIndex = taskArray.length;
         Task memory newTask = Task(name,
@@ -152,15 +169,5 @@ contract YourContract {
         taskArray[taskIndex] = task;
     }
 
-    function getReputation(string memory name) public view returns(uint256 memberReputation) {
-        uint256[] memory repArray = reputation[name];
-        uint256 tasksCompleted = reputation[name].length;
-        uint256 sumRep;
-        for (uint256 i = 0; i < repArray.length; i++) {
-                sumRep += repArray[i];
-            }
-        uint256 average = sumRep / tasksCompleted;
-        return average;
-    }
 
 }

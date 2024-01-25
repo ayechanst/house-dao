@@ -1,6 +1,12 @@
 House DAO
-TODO: get tasks to change state between active and grading. look in TaskDisplay could be there
-or useState could be an alternative
+TODO: make getReputation work.
+options:
+- have an array of arrays to store memebers reputation where the repArray index is
+  equal the index position of the member
+- have one array of all rep points each person has and just do math on it before
+  returning that array to the front end
+- make the members into structs and give them reputation there
+
 
 * Phase 1 walkthrough
 ** Global variables
@@ -47,3 +53,5 @@ Then:
 
 * Phase 2 ideas
 - ppl can see votes in favor
+- if a vote ties flips a coin
+- add a timer tied to a block number

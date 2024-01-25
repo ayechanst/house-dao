@@ -24,7 +24,7 @@ export const Drawer = () => {
           </div>
         </div>
       </div>
-      <div className="drawer-side w-1/2 flex flex-grow">
+      <div className="drawer-side w-1/2">
         <label
           htmlFor="my-drawer"
           aria-label="close sidebar"

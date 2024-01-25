@@ -6,9 +6,20 @@ export const Reputation = () => {
     functionName: 'getMembers',
   });
 
-  let readArray: string[] = [];
+  const { data: reputationArray } = useScaffoldContractRead({
+    contractName: 'YourContract',
+    functionName: 'getReputation',
+  });
 
+  // const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
+
+  let readArray: string[] = [];
+  let repArray: number[] = [];
+
+  reputationArray?.forEach(rep => repArray.push(Number(rep)));
   memberArray?.forEach(member => readArray.push(member as string));
+
+  console.log('repArray: ', repArray);
 
   return (
     <>
