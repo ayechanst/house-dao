@@ -34,6 +34,16 @@ if a task wins:
 3. runner up ticks up to prepare ballot for the next task to vote on
 else:
 1. the runner up remains inactive
+*** gradeTask()
+- gets the target task
+- gets the grade
+Then:
+1. gets the correct task
+2. grabs the manager
+3. adds the grade to the *global totalGrade*
+4. increase the *global numOfGrades*
+5. checks if the numOfGrades is equal to the taskForce length
+   if it does it updates everything
 
 * Phase 2 ideas
 - ppl can see votes in favor

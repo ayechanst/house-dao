@@ -24,16 +24,19 @@ export const Drawer = () => {
           </div>
         </div>
       </div>
-      <div className="drawer-side w-1/2">
+      <div className="drawer-side w-1/2 flex flex-grow">
         <label
           htmlFor="my-drawer"
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-1/2 min-h-full bg-base-200 text-base-content flex">
+        <ul className="menu p-4 min-h-full bg-base-200 text-base-content flex flex-grow">
           <AddMember />
           <AddTask />
           <VotingQue />
+          <label htmlFor="my-drawer" className="btn btn-primary drawer-button">
+            close drawer
+          </label>
         </ul>
       </div>
     </div>
