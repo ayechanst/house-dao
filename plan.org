@@ -50,6 +50,15 @@ Then:
 4. increase the *global numOfGrades*
 5. checks if the numOfGrades is equal to the taskForce length
    if it does it updates everything
+*** cycleManager()
+1. gets the task out of the array
+2. gets the current task manager
+3. gets the taskForce
+4. gets the index of the manager
+5. ticks up index of the manager
+6.
+
+
 
 * Phase 2 ideas
 - ppl can see votes in favor
@@ -57,3 +66,22 @@ Then:
 - add a timer tied to a block number
 - display task status
 - have task descriptions
+* question for se2
+gm everyone, im having trouble understanding the wagmi hook useScaffoldContractRead. in the docs it says that u can give it an argument? but my lsp says that the expression is not
+callable on line 23. this component returns buttons of members in a dao, and when u click
+a members button its supposed to display their reputation. in my smart contract the
+getReputation function takes in a string (the member's name) and finds their name in a
+reputation array that looks like:
+mapping(string => uint256[]) public reputation;
+the uint256[] is an array of grades they receive from 1-10, and the function gets that array
+and averages out their grades for their average reputation. some more info:
+1. getReputation() in sol works fine in debug contracts for finding an individual's reputation.
+2. my component might look weird im not too sure about .tsx conventions but it seems however
+   i refactor it when i call reputationOf() -> (the useScaffoldContractRead) it always says
+   the expression is not callable.
+3. the contract itself is compiling just fine.
+4. i commented out the Reputation.tsx component in my main file because it was breaking my
+   whole app in the front end.
+5. this is a v1 of the project, i just want it to work now and im optimising it in v2.
+
+does anyone have an idea of whats going on? if something isnt clear lmk!

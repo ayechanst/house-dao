@@ -129,6 +129,7 @@ contract YourContract {
             uint256 finalGrade = totalGrade / task.taskForce.length;
             reputation[manager].push(finalGrade);
             numOfGrades = 0;
+            totalGrade = 0;
             // task.status = Status.ACTIVE;
             taskArray[taskIndex] = task;
         }
