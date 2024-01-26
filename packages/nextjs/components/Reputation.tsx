@@ -1,6 +1,8 @@
 import { useScaffoldContractRead } from '~~/hooks/scaffold-eth';
+import React, { useState } from 'react';
 
 export const Reputation = () => {
+  const [memberName, setMemberName] = useState('');
   const { data: memberArray } = useScaffoldContractRead({
     contractName: 'YourContract',
     functionName: 'getMembers',
@@ -9,17 +11,15 @@ export const Reputation = () => {
   const { data: reputationArray } = useScaffoldContractRead({
     contractName: 'YourContract',
     functionName: 'getReputation',
+    args: [memberName],
   });
 
-  // const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
-
   let readArray: string[] = [];
-  let repArray: number[] = [];
-
-  reputationArray?.forEach(rep => repArray.push(Number(rep)));
   memberArray?.forEach(member => readArray.push(member as string));
 
-  console.log('repArray: ', repArray);
+  function handleClick(member: string) {
+    reputationArray(member);
+  }
 
   return (
     <>
@@ -27,15 +27,18 @@ export const Reputation = () => {
         <div className="card-body">
           <h2 className="card-title">Reputation</h2>
           <div className="grid grid-cols-4 gap-3">
-            {readArray.map(member => {
-              return (
-                <>
-                  <div key={member}>
-                    <div>{member}</div>
-                  </div>
-                </>
-              );
-            })}
+            {readArray.map((member, index) => (
+              <button
+                onClick={() => {
+                  setMemberName({ member });
+                  handleClick(member);
+                }}
+                key={index}
+                className="btn btn-primary"
+              >
+                {member}
+              </button>
+            ))}
           </div>
         </div>
       </div>

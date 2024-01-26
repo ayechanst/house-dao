@@ -4,15 +4,6 @@ pragma solidity >=0.8.0 <0.9.0;
 // Useful for debugging. Remove when deploying to a live network.
 import "hardhat/console.sol";
 
-// Use openzeppelin to inherit battle-tested implementations (ERC20, ERC721, etc)
-// import "@openzeppelin/contracts/access/Ownable.sol";
-
-/**
- * A smart contract that allows changing a state variable of the contract and tracking the changes
- * It also allows the owner to withdraw the Ether in the contract
- * @author BuidlGuidl
- */
-
 contract YourContract {
 
     struct Task {
@@ -69,21 +60,15 @@ contract YourContract {
         return allMembers;
     }
 
-    // what will this return? => an array of averages with an index corresponding to the member
-    function getReputation() public view returns(uint256[] memory allAverages) {
-        allAverages = new uint256[](membersArray.length);
+    function getReputation(string memory name) public view returns(uint256 memberReputation) {
+        uint256[] memory repArray = reputation[name];
+        uint256 tasksCompleted = reputation[name].length;
         uint256 sumRep;
-        for (uint256 j = 0; j < membersArray.length; j++) {
-            string memory name = membersArray[j];
-            uint256[] memory repArray = reputation[name];
-            uint256 tasksCompleted = reputation[name].length;
-            for (uint256 i = 0; i < repArray.length; i++) {
-                    sumRep += repArray[i];
-                }
-            uint256 average = sumRep / tasksCompleted;
-            allAverages[j] = average;
-        }
-        return allAverages;
+        for (uint256 i = 0; i < repArray.length; i++) {
+                sumRep += repArray[i];
+            }
+        uint256 average = sumRep / tasksCompleted;
+        return average;
     }
 
     function addTask(string memory name, string[] memory taskForce) public {
@@ -145,7 +130,7 @@ contract YourContract {
             uint256 finalGrade = totalGrade / task.taskForce.length;
             reputation[manager].push(finalGrade);
             numOfGrades = 0;
-            task.status = Status.ACTIVE;
+            // task.status = Status.ACTIVE;
             taskArray[taskIndex] = task;
         }
     }

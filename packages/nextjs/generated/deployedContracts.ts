@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
           abi: [
             {
               inputs: [
@@ -91,13 +91,19 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+              ],
               name: "getReputation",
               outputs: [
                 {
-                  internalType: "uint256[]",
-                  name: "allAverages",
-                  type: "uint256[]",
+                  internalType: "uint256",
+                  name: "memberReputation",
+                  type: "uint256",
                 },
               ],
               stateMutability: "view",
