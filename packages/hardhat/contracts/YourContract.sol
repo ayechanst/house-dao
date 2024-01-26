@@ -34,7 +34,6 @@ contract YourContract {
     uint256 numOfGrades;
 
     function votingTask() public view returns(Task memory) {
-        // if array is empty
         if (taskArray.length < 1) {
             return Task(
                         "blank",
@@ -151,6 +150,7 @@ contract YourContract {
         if (managerIndex >= taskForce.length) {
             managerIndex = 0;
         }
+        task.manager = taskForce[managerIndex];
         taskArray[taskIndex] = task;
     }
 
