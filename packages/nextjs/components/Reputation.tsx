@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 
 export const Reputation = () => {
   const [memberName, setMemberName] = useState('');
+  const [showReputation, setShowReputation] = useState(false);
+  const [reputation, setReputation] = useState(0);
+  // const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
   const { data: memberArray } = useScaffoldContractRead({
     contractName: 'YourContract',
     functionName: 'getMembers',
   });
 
-  const { data: reputationArray } = useScaffoldContractRead({
+  const { data: reputationOf } = useScaffoldContractRead({
     contractName: 'YourContract',
     functionName: 'getReputation',
     args: [memberName],
@@ -17,8 +20,11 @@ export const Reputation = () => {
   let readArray: string[] = [];
   memberArray?.forEach(member => readArray.push(member as string));
 
-  function handleClick(member: string) {
-    reputationArray(member);
+  function handleClick() {
+    const valueAsNumber =
+      reputationOf !== undefined ? Number(reputationOf) : Number(0);
+    setReputation(valueAsNumber);
+    setShowReputation(true);
   }
 
   return (
@@ -30,8 +36,8 @@ export const Reputation = () => {
             {readArray.map((member, index) => (
               <button
                 onClick={() => {
-                  setMemberName({ member });
-                  handleClick(member);
+                  setMemberName(member);
+                  handleClick();
                 }}
                 key={index}
                 className="btn btn-primary"
@@ -39,6 +45,7 @@ export const Reputation = () => {
                 {member}
               </button>
             ))}
+            {showReputation && <div>Reputation: {reputation}</div>}
           </div>
         </div>
       </div>

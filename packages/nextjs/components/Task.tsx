@@ -48,6 +48,9 @@ export const Task = ({
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     writeGrade();
+  }
+
+  function handleClick() {
     cycleManager();
   }
 
@@ -81,6 +84,9 @@ export const Task = ({
                 />
                 <button type="submit" className="btn btn-primary mt-5">
                   Submit Grade
+                </button>
+                <button className="btn ml-2" onClick={handleClick}>
+                  Cycle Manager
                 </button>
               </form>
             )}
