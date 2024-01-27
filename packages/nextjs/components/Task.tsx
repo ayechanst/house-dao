@@ -1,5 +1,5 @@
 import { useScaffoldContractWrite } from '~~/hooks/scaffold-eth';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface TaskProps {
   taskName: string;
@@ -16,12 +16,35 @@ export const Task = ({
   taskStatus,
   taskIndex,
 }: TaskProps) => {
+  // console.log('this thing is re-rendering');
   //
   // variables
   //
   const [taskGrade, setTaskGrade] = useState('');
   const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
-  const indexAsBigInt = taskIndex !== undefined ? BigInt(taskIndex) : BigInt(0);
+  // it needs to reload the task index so it doesnt always think its the first one
+  // this might be a large scale problem, which is why rep doesnt work well when doing
+  // other tasks
+  //
+  const [indexAsBigInt, setIndexAsBigInt] = useState<bigint>(BigInt(0));
+
+  useEffect(() => {
+    if (taskIndex !== undefined) {
+      const indexToSet =
+        taskIndex !== undefined ? BigInt(taskIndex) : BigInt(0);
+      // console.log('taskIndex:', taskIndex);
+      // console.log('indexAsBigInt:', indexAsBigInt);
+      setIndexAsBigInt(indexToSet);
+    }
+  }, [taskIndex]);
+
+  useEffect(() => {
+    console.log('Task component mounted'); // This will log when the component mounts
+  }, []);
+
+  useEffect(() => {
+    console.log('taskIndex has changed:', taskIndex); // This will log when taskIndex changes
+  }, [taskIndex]);
 
   const { writeAsync: cycleManager } = useScaffoldContractWrite({
     contractName: 'YourContract',
@@ -29,21 +52,11 @@ export const Task = ({
     args: [indexAsBigInt],
   });
 
-  // const { writeAsync: writeComplete } = useScaffoldContractWrite({
-  //   contractName: 'YourContract',
-  //   functionName: 'completeTask',
-  //   args: [indexAsBigInt],
-  // });
-
   const { writeAsync: writeGrade } = useScaffoldContractWrite({
     contractName: 'YourContract',
     functionName: 'gradeTask',
     args: [indexAsBigInt, gradeAsBigInt],
   });
-
-  // function handleComplete() {
-  //   writeComplete();
-  // }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
