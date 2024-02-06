@@ -1,34 +1,26 @@
-import React, { useState } from 'react';
-import { useScaffoldContractRead } from '~~/hooks/scaffold-eth';
-import { useScaffoldContractWrite } from '~~/hooks/scaffold-eth';
-import { Task } from './Task';
-
-interface TaskObject {
-  name: string;
-  manager: string;
-  taskForce: string[];
-  status: number;
-  index: number;
-}
+import React, { useState } from "react";
+import { Task } from "./Task";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const VotingQue = () => {
   const [vote, setVote] = useState(false);
+
   const { writeAsync } = useScaffoldContractWrite({
-    contractName: 'YourContract',
-    functionName: 'ballot',
+    contractName: "YourContract",
+    functionName: "ballot",
     args: [vote],
     onBlockConfirmation: txnReceipt => {
-      console.log('voted', txnReceipt.blockHash);
+      console.log("voted", txnReceipt.blockHash);
     },
   });
 
   const { data: votingTask } = useScaffoldContractRead({
-    contractName: 'YourContract',
-    functionName: 'votingTask',
+    contractName: "YourContract",
+    functionName: "votingTask",
   });
 
-  const task: TaskObject | undefined =
-    votingTask && 'name' in votingTask ? (votingTask as TaskObject) : undefined;
+  const task: any = votingTask;
 
   function handleVote(vote: boolean) {
     setVote(vote);
@@ -40,32 +32,26 @@ export const VotingQue = () => {
       <div className="card max-w-screen bg-base-100 shadow-xl mt-5">
         <div className="card-body p-5">
           <h2 className="card-title">Vote on this!</h2>
-          <div>
-            {votingTask && task?.status === 0 && (
+          {task?.status == 0 && (
+            <div>
               <Task
-                key={task?.index}
+                key={task.index}
                 taskName={task.name}
                 taskManager={task.manager}
                 taskForce={task.taskForce}
                 taskStatus={task.status}
                 taskIndex={task.index}
               />
-            )}
-            {votingTask && task?.status === 1 && (
-              <div>No tasks for voting atm!</div>
-            )}
-          </div>
-          <div className="flex items-stretch justify-around">
-            <button
-              onClick={() => handleVote(true)}
-              className="btn btn-success"
-            >
-              Approve
-            </button>
-            <button onClick={() => handleVote(false)} className="btn btn-error">
-              Disapprove
-            </button>
-          </div>
+              <div className="flex items-stretch justify-around">
+                <button onClick={() => handleVote(true)} className="btn btn-success">
+                  Approve
+                </button>
+                <button onClick={() => handleVote(false)} className="btn btn-error">
+                  Disapprove
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
