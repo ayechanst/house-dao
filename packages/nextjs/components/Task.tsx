@@ -6,58 +6,29 @@ interface TaskProps {
   taskManager: string;
   taskForce: string[];
   taskStatus: number;
-  taskIndex: number;
+  taskIndex: bigint;
 }
 
 export const Task = ({ taskName, taskManager, taskForce, taskStatus, taskIndex }: TaskProps) => {
-  // console.log('this thing is re-rendering');
-  //
-  // variables
-  //
   const [taskGrade, setTaskGrade] = useState("");
   const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
-  // it needs to reload the task index so it doesnt always think its the first one
-  // this might be a large scale problem, which is why rep doesnt work well when doing
-  // other tasks
-  //
-  const [indexAsBigInt, setIndexAsBigInt] = useState<bigint>(BigInt(0));
-
-  useEffect(() => {
-    if (taskIndex !== undefined) {
-      const indexToSet = taskIndex !== undefined ? BigInt(taskIndex) : BigInt(0);
-      // console.log('taskIndex:', taskIndex);
-      // console.log('indexAsBigInt:', indexAsBigInt);
-      setIndexAsBigInt(indexToSet);
-    }
-  }, [taskIndex]);
-
-  useEffect(() => {
-    console.log("Task component mounted"); // This will log when the component mounts
-  }, []);
-
-  useEffect(() => {
-    console.log("taskIndex has changed:", taskIndex); // This will log when taskIndex changes
-  }, [taskIndex]);
+  const taskIndexAsNumber: number = Number(taskIndex);
 
   const { writeAsync: cycleManager } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "cycleManager",
-    args: [indexAsBigInt],
+    args: [taskIndex],
   });
 
   const { writeAsync: writeGrade } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "gradeTask",
-    args: [indexAsBigInt, gradeAsBigInt],
+    args: [taskIndex, gradeAsBigInt],
   });
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     writeGrade();
-  }
-
-  function handleClick() {
-    cycleManager();
   }
 
   return (
@@ -79,6 +50,7 @@ export const Task = ({ taskName, taskManager, taskForce, taskStatus, taskIndex }
               );
             })}
           </div>
+          <div>taskindex: {taskIndexAsNumber} </div>
           <div className="card-actions justify-center">
             {taskStatus !== 0 && (
               <form onSubmit={handleSubmit}>
@@ -91,7 +63,7 @@ export const Task = ({ taskName, taskManager, taskForce, taskStatus, taskIndex }
                 <button type="submit" className="btn btn-primary mt-5">
                   Submit Grade
                 </button>
-                <button className="btn ml-2" onClick={handleClick}>
+                <button className="btn ml-2" onClick={() => cycleManager}>
                   Cycle Manager
                 </button>
               </form>

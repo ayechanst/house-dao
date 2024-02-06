@@ -1,39 +1,41 @@
+import { useEffect, useState } from "react";
 import { Task } from "./Task";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 interface TaskObject {
   name: string;
   manager: string;
-  taskForce: string[];
+  taskForce: readonly string[];
   status: number;
-  index: number;
+  taskIndex: bigint;
 }
 
 export const TaskDisplay = () => {
-  const activeTasks: TaskObject[] = [];
+  const [activeTasks, setActiveTasks] = useState<TaskObject[]>([]);
+
   const { data: taskObjectArray } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "getTasks",
   });
 
-  taskObjectArray?.forEach((task: TaskObject) => {
-    if (task.status == 1 || task.status == 2) {
-      activeTasks.push(task);
-    }
-  });
+  if (taskObjectArray) {
+    const filteredTasks = taskObjectArray.filter(task => task.status === 1 || task.status === 2);
+    setActiveTasks(filteredTasks);
+  }
 
   return (
     <>
       <div className="grid grid-cols-3">
         {activeTasks?.map(task => {
+          const mutableTaskForce = task.taskForce.slice();
           return (
             <Task
-              key={task.index}
+              key={task.taskIndex}
               taskName={task.name}
               taskManager={task.manager}
-              taskForce={task.taskForce}
+              taskForce={mutableTaskForce}
               taskStatus={task.status}
-              taskIndex={task.index}
+              taskIndex={task.taskIndex}
             />
           );
         })}
