@@ -18,10 +18,12 @@ export const TaskDisplay = () => {
     functionName: "getTasks",
   });
 
-  if (taskObjectArray) {
-    const filteredTasks = taskObjectArray.filter(task => task.status === 1 || task.status === 2);
-    setActiveTasks(filteredTasks);
-  }
+  useEffect(() => {
+    if (taskObjectArray) {
+      const filteredTasks = taskObjectArray.filter(task => task.status === 1 || task.status === 2);
+      setActiveTasks(filteredTasks);
+    }
+  }, [taskObjectArray]);
 
   return (
     <>

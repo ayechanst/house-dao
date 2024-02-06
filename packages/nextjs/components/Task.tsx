@@ -63,7 +63,7 @@ export const Task = ({ taskName, taskManager, taskForce, taskStatus, taskIndex }
                 <button type="submit" className="btn btn-primary mt-5">
                   Submit Grade
                 </button>
-                <button className="btn ml-2" onClick={() => cycleManager}>
+                <button className="btn ml-2" onClick={() => cycleManager()}>
                   Cycle Manager
                 </button>
               </form>
