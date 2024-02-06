@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useScaffoldContractWrite } from '~~/hooks/scaffold-eth';
+import React, { useState } from "react";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const AddMember = () => {
-  const [memberName, setMemberName] = useState('');
+  const [memberName, setMemberName] = useState("");
   const { writeAsync } = useScaffoldContractWrite({
-    contractName: 'YourContract',
-    functionName: 'addMember',
+    contractName: "YourContract",
+    functionName: "addMember",
     args: [memberName],
     onBlockConfirmation: txnReceipt => {
-      console.log('person created', txnReceipt.blockHash);
+      console.log("person created", txnReceipt.blockHash);
     },
   });
 

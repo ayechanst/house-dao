@@ -1,5 +1,5 @@
-import { useScaffoldContractRead } from '~~/hooks/scaffold-eth';
-import { Task } from './Task';
+import { Task } from "./Task";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 interface TaskObject {
   name: string;
@@ -12,8 +12,8 @@ interface TaskObject {
 export const TaskDisplay = () => {
   const activeTasks: TaskObject[] = [];
   const { data: taskObjectArray } = useScaffoldContractRead({
-    contractName: 'YourContract',
-    functionName: 'getTasks',
+    contractName: "YourContract",
+    functionName: "getTasks",
   });
 
   taskObjectArray?.forEach((task: TaskObject) => {
@@ -24,7 +24,7 @@ export const TaskDisplay = () => {
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-3">
         {activeTasks?.map(task => {
           return (
             <Task

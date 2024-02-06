@@ -1,19 +1,19 @@
-import { useScaffoldContractRead } from '~~/hooks/scaffold-eth';
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 export const Reputation = () => {
-  const [memberName, setMemberName] = useState('');
+  const [memberName, setMemberName] = useState("");
   const [showReputation, setShowReputation] = useState(false);
   const [reputation, setReputation] = useState(0);
   // const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
   const { data: memberArray } = useScaffoldContractRead({
-    contractName: 'YourContract',
-    functionName: 'getMembers',
+    contractName: "YourContract",
+    functionName: "getMembers",
   });
 
   const { data: reputationOf } = useScaffoldContractRead({
-    contractName: 'YourContract',
-    functionName: 'getReputation',
+    contractName: "YourContract",
+    functionName: "getReputation",
     args: [memberName],
   });
 
@@ -21,8 +21,7 @@ export const Reputation = () => {
   memberArray?.forEach(member => readArray.push(member as string));
 
   function handleClick() {
-    const valueAsNumber =
-      reputationOf !== undefined ? Number(reputationOf) : Number(0);
+    const valueAsNumber = reputationOf !== undefined ? Number(reputationOf) : Number(0);
     setReputation(valueAsNumber);
     setShowReputation(true);
   }
@@ -40,12 +39,16 @@ export const Reputation = () => {
                   handleClick();
                 }}
                 key={index}
-                className="btn btn-primary"
+                className="btn"
               >
                 {member}
               </button>
             ))}
-            {showReputation && <div>Reputation: {reputation}</div>}
+            {showReputation && (
+              <div>
+                {memberName}'s Reputation: {reputation}
+              </div>
+            )}
           </div>
         </div>
       </div>

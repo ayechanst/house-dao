@@ -1,5 +1,5 @@
-import { useScaffoldContractWrite } from '~~/hooks/scaffold-eth';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 interface TaskProps {
   taskName: string;
@@ -9,18 +9,12 @@ interface TaskProps {
   taskIndex: number;
 }
 
-export const Task = ({
-  taskName,
-  taskManager,
-  taskForce,
-  taskStatus,
-  taskIndex,
-}: TaskProps) => {
+export const Task = ({ taskName, taskManager, taskForce, taskStatus, taskIndex }: TaskProps) => {
   // console.log('this thing is re-rendering');
   //
   // variables
   //
-  const [taskGrade, setTaskGrade] = useState('');
+  const [taskGrade, setTaskGrade] = useState("");
   const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
   // it needs to reload the task index so it doesnt always think its the first one
   // this might be a large scale problem, which is why rep doesnt work well when doing
@@ -30,8 +24,7 @@ export const Task = ({
 
   useEffect(() => {
     if (taskIndex !== undefined) {
-      const indexToSet =
-        taskIndex !== undefined ? BigInt(taskIndex) : BigInt(0);
+      const indexToSet = taskIndex !== undefined ? BigInt(taskIndex) : BigInt(0);
       // console.log('taskIndex:', taskIndex);
       // console.log('indexAsBigInt:', indexAsBigInt);
       setIndexAsBigInt(indexToSet);
@@ -39,22 +32,22 @@ export const Task = ({
   }, [taskIndex]);
 
   useEffect(() => {
-    console.log('Task component mounted'); // This will log when the component mounts
+    console.log("Task component mounted"); // This will log when the component mounts
   }, []);
 
   useEffect(() => {
-    console.log('taskIndex has changed:', taskIndex); // This will log when taskIndex changes
+    console.log("taskIndex has changed:", taskIndex); // This will log when taskIndex changes
   }, [taskIndex]);
 
   const { writeAsync: cycleManager } = useScaffoldContractWrite({
-    contractName: 'YourContract',
-    functionName: 'cycleManager',
+    contractName: "YourContract",
+    functionName: "cycleManager",
     args: [indexAsBigInt],
   });
 
   const { writeAsync: writeGrade } = useScaffoldContractWrite({
-    contractName: 'YourContract',
-    functionName: 'gradeTask',
+    contractName: "YourContract",
+    functionName: "gradeTask",
     args: [indexAsBigInt, gradeAsBigInt],
   });
 
@@ -69,7 +62,7 @@ export const Task = ({
 
   return (
     <>
-      <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="card w-80 bg-base-100 shadow-xl my-2">
         <div className="card-body p-5">
           <div className="card-title">{taskName}</div>
           <div className="flex">
