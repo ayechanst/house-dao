@@ -2,7 +2,6 @@
 
 // import Link from 'next/link';
 import type { NextPage } from "next";
-import { BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { AddMember } from "~~/components/AddMember";
 import { AddTask } from "~~/components/AddTask";
 import { Reputation } from "~~/components/Reputation";

@@ -17,7 +17,7 @@ export const Reputation = () => {
     args: [memberName],
   });
 
-  let readArray: string[] = [];
+  const readArray: string[] = [];
   memberArray?.forEach(member => readArray.push(member as string));
 
   function handleClick() {
@@ -45,13 +45,7 @@ export const Reputation = () => {
               </button>
             ))}
           </div>
-          <div>
-            {showReputation && (
-              <div className="flex ">
-                {memberName}'s Reputation: {reputation}
-              </div>
-            )}
-          </div>
+          <div>{showReputation && <div className="flex ">{`${memberName}'s Reputation: ${reputation}`}</div>}</div>
         </div>
       </div>
     </>

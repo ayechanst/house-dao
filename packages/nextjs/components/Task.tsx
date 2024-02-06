@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 interface TaskProps {
@@ -41,9 +41,9 @@ export const Task = ({ taskName, taskManager, taskForce, taskStatus, taskIndex }
           </div>
           <div>
             <div className="font-bold">Task Force:</div>
-            {taskForce.map(member => {
+            {taskForce.map((member, index) => {
               return (
-                <div>
+                <div key={index}>
                   <div>{member}</div>
                 </div>
               );
