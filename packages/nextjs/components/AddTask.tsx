@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { useScaffoldContractRead } from '~~/hooks/scaffold-eth';
-import { useScaffoldContractWrite } from '~~/hooks/scaffold-eth';
+import React, { useState } from "react";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const AddTask = () => {
   const [taskForce, setCheckboxData] = useState<string[]>([]);
-  const [taskName, setTaskName] = useState('');
+  const [taskName, setTaskName] = useState("");
   const { data: memberArray } = useScaffoldContractRead({
-    contractName: 'YourContract',
-    functionName: 'getMembers',
+    contractName: "YourContract",
+    functionName: "getMembers",
   });
 
   const { writeAsync } = useScaffoldContractWrite({
-    contractName: 'YourContract',
-    functionName: 'addTask',
+    contractName: "YourContract",
+    functionName: "addTask",
     args: [taskName, taskForce],
     onBlockConfirmation: txnReceipt => {
-      console.log('Task added', txnReceipt.blockHash);
+      console.log("Task added", txnReceipt.blockHash);
     },
   });
 
-  let readArray: string[] = [];
+  const readArray: string[] = [];
 
   memberArray?.forEach((member: string) => readArray.push(member));
 
@@ -56,11 +56,7 @@ export const AddTask = () => {
               {readArray?.map((name, index) => (
                 <div key={index} className="py-1">
                   <label className="flex">
-                    <input
-                      type="checkbox"
-                      className="checkbox"
-                      onChange={() => handleCheckbox(name)}
-                    />
+                    <input type="checkbox" className="checkbox" onChange={() => handleCheckbox(name)} />
                     <div className="px-3">{name}</div>
                   </label>
                 </div>
