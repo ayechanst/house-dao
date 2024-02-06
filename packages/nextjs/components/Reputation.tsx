@@ -30,7 +30,7 @@ export const Reputation = () => {
     <>
       <div className="card bg-base-100 shadow-xl mb-3">
         <div className="card-body">
-          <h2 className="card-title">Reputation</h2>
+          <h2 className="card-title">Click for Reputation</h2>
           <div className="grid grid-cols-4 gap-3">
             {readArray.map((member, index) => (
               <button
@@ -44,8 +44,10 @@ export const Reputation = () => {
                 {member}
               </button>
             ))}
+          </div>
+          <div>
             {showReputation && (
-              <div>
+              <div className="flex ">
                 {memberName}'s Reputation: {reputation}
               </div>
             )}

@@ -12,7 +12,6 @@ interface TaskProps {
 export const Task = ({ taskName, taskManager, taskForce, taskStatus, taskIndex }: TaskProps) => {
   const [taskGrade, setTaskGrade] = useState("");
   const gradeAsBigInt = taskGrade !== undefined ? BigInt(taskGrade) : BigInt(0);
-  const taskIndexAsNumber: number = Number(taskIndex);
 
   const { writeAsync: cycleManager } = useScaffoldContractWrite({
     contractName: "YourContract",
@@ -50,7 +49,6 @@ export const Task = ({ taskName, taskManager, taskForce, taskStatus, taskIndex }
               );
             })}
           </div>
-          <div>taskindex: {taskIndexAsNumber} </div>
           <div className="card-actions justify-center">
             {taskStatus !== 0 && (
               <form onSubmit={handleSubmit}>

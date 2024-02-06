@@ -27,7 +27,7 @@ export const TaskDisplay = () => {
 
   return (
     <>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 mx-6">
         {activeTasks?.map(task => {
           const mutableTaskForce = task.taskForce.slice();
           return (

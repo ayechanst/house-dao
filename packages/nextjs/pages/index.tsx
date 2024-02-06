@@ -13,10 +13,10 @@ const Home: NextPage = () => {
   return (
     <>
       <header className="max-w-screen-xl mx-auto h-10">
-        <div>DOMUS DAO</div>
+        <div className="text-3xl font-bold">DOMUS DAO</div>
       </header>
-      <main className="flex">
-        <div className="w-1/4 mx-3">
+      <main className="flex justify-between">
+        <div className="w-1/4 ml-3">
           <AddMember />
           <Reputation />
           <AddTask />
